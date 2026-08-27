@@ -13,9 +13,9 @@ public class Jugador {
         sigueJugando = true;
     }
 
-    public Jugador(Mano manoJugador, String nombreJugador) {
-        this.manoJugador = manoJugador;
+    public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
+        manoJugador = new Mano();
         sigueJugando = true;
     }
 
