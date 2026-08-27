@@ -3,50 +3,46 @@ package com.example.practica1algoritmos.modelo.blackjack;
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 
 public class Jugador {
-    private Mano manoJugador;
+    protected Mano manoJugador;
     private String nombreJugador;
-    private boolean sigueJugando;
-    private boolean haJugado;
+    private boolean seHaPlantado;
 
     public Jugador() {
         manoJugador = new Mano();
         nombreJugador = "Jugador1";
-        sigueJugando = true;
-        haJugado = false;
+        seHaPlantado = true;
     }
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
         manoJugador = new Mano();
-        sigueJugando = true;
+        seHaPlantado = true;
     }
 
 
     public void pedirCarta(CartaInglesa carta) {
-        manoJugador.agregarCarta(carta);
+        if (manoJugador.isManoDesbordada()) {
+            manoJugador.agregarCarta(carta);
+        }
     }
 
     public void plantarse() {
-        setSigueJugando(false);
+        setSeHaPlantado(false);
     }
 
     public Mano getManoJugador() {
         return manoJugador;
     }
-    public boolean isHaJugado() {
-        return haJugado;
-    }
-
-    public void setHaJugado(boolean haJugado) {
-        this.haJugado = haJugado;
+    public boolean isHaTomadoSuTurno() {
+        return isSeHaPlantado() || manoJugador.isManoDesbordada();
     }
 
     public String getNombreJugador() {
         return nombreJugador;
     }
 
-    public boolean isSigueJugando() {
-        return sigueJugando;
+    public boolean isSeHaPlantado() {
+        return seHaPlantado;
     }
 
     public void setManoJugador(Mano manoJugador) {
@@ -57,7 +53,7 @@ public class Jugador {
         this.nombreJugador = nombreJugador;
     }
 
-    public void setSigueJugando(boolean sigueJugando) {
-        this.sigueJugando = sigueJugando;
+    public void setSeHaPlantado(boolean seHaPlantado) {
+        this.seHaPlantado = seHaPlantado;
     }
 }

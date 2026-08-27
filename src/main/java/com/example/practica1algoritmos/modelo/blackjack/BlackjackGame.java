@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class BlackjackGame {
     private Mazo mazoCartas;
     private ArrayList<Jugador> jugadores;
-    private HashMap<String, Jugador> resultadosJugadores;
+    private HashMap<Jugador, String> resultadosJugadores;
     private Dealer dealer;
 
     public BlackjackGame(ArrayList<String> nombresJugadores) {
@@ -36,7 +36,6 @@ public class BlackjackGame {
         dealer.getManoJugador().getCartas().get(1).makeFaceDown();
     }
 
-
     public void pedirCarta(int indiceJugadorActual) {
         if (jugadores.get(indiceJugadorActual) != null) {
             jugadores.get(indiceJugadorActual).pedirCarta(mazoCartas.obtenerUnaCarta());
@@ -60,19 +59,20 @@ public class BlackjackGame {
     public void obtenerGanadores() {
         for (Jugador j : jugadores) {
             Mano manoJugador = j.getManoJugador();
-            if (manoJugador.compareTo(getDealer().getManoJugador()) > 1) {
-                resultadosJugadores.put("Ganador", j);
+            if (manoJugador.isManoDesbordada()) {
+                resultadosJugadores.put(j, "Perdedor");
+            } else if (manoJugador.compareTo(getDealer().getManoJugador()) > 0) {
+                resultadosJugadores.put(j, "Ganador");
             } else if (manoJugador.compareTo(getDealer().getManoJugador()) == 0) {
-                resultadosJugadores.put("Empate", j);
+                resultadosJugadores.put(j, "Empate");
             } else {
-                resultadosJugadores.put("Perdedor", j);
+                resultadosJugadores.put(j, "Perdedor");
             }
         }
     }
 
     public boolean todosHanJugado() {
-        return jugadores.stream().filter(k -> k.isHaJugado())
-                .count() == jugadores.size();
+        return jugadores.stream().allMatch(Jugador::isHaTomadoSuTurno);
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -81,5 +81,9 @@ public class BlackjackGame {
 
     public Dealer getDealer() {
         return dealer;
+    }
+
+    public HashMap<Jugador, String> getResultadosJugadores() {
+        return resultadosJugadores;
     }
 }

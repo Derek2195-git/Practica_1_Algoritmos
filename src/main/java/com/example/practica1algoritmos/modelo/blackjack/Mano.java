@@ -17,13 +17,20 @@ public class Mano implements Comparable<Mano> {
 
     public int calcularPuntaje() {
         puntaje = 0;
+        int asesEncontrados = 0;
         for(CartaInglesa cartaActual : cartas) {
             int valorCarta = obtenerValorCarta(cartaActual);
+            if (cartaActual.getValor() == 14) {
+                asesEncontrados++;
+            }
             puntaje += valorCarta;
         }
-        // Algun sistema que permita sumar 11 o 1 en el puntaje deberia ir aqui
-        // Por mientras se ignorará hasta que los demas sistemas estén listos
 
+        // Mientras el puntaje se haya pasado y se haya encontrado al menos un as, lo bajamos a 1
+        while (puntaje > 21 && asesEncontrados > 0) {
+            puntaje -= 10;
+            asesEncontrados--;
+        }
 
         return puntaje;
     }
@@ -94,10 +101,10 @@ public class Mano implements Comparable<Mano> {
 
     @Override
     public String toString() {
-        String cadena = "";
+        StringBuilder cadena = new StringBuilder();
         for (CartaInglesa carta : cartas) {
-            cadena += String.valueOf(carta.getValor()) + carta.getPalo() + "\n";
+            cadena.append(carta.toString()).append(" ");
         }
-        return cadena;
+        return cadena.toString();
     }
 }
