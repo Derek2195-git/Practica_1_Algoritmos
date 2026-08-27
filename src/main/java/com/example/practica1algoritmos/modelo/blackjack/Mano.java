@@ -64,6 +64,14 @@ public class Mano implements Comparable<Mano> {
         return puntaje;
     }
 
+    /**
+     * Metodo que compara la puntuacion de dos manos y saca la ganadora
+     * 0 - Hubo empate
+     * 1 - La mano con la que se comparó es mayor que la mano a comparar
+     * -1 - La mano a comparar es mayor que la que se comparó
+     * @param manoAComparar Mano con la que se comparará
+     * @return un valor entero que representa cual mano es la mayor
+     */
     @Override
     public int compareTo(Mano manoAComparar) {
         if (isManoDesbordada() && manoAComparar.isManoDesbordada()) {
@@ -84,5 +92,12 @@ public class Mano implements Comparable<Mano> {
         return this.calcularPuntaje() - manoAComparar.calcularPuntaje();
     }
 
-
+    @Override
+    public String toString() {
+        String cadena = "";
+        for (CartaInglesa carta : cartas) {
+            cadena += String.valueOf(carta.getValor()) + carta.getPalo() + "\n";
+        }
+        return cadena;
+    }
 }

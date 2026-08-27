@@ -6,11 +6,13 @@ public class Jugador {
     private Mano manoJugador;
     private String nombreJugador;
     private boolean sigueJugando;
+    private boolean haJugado;
 
     public Jugador() {
         manoJugador = new Mano();
         nombreJugador = "Jugador1";
         sigueJugando = true;
+        haJugado = false;
     }
 
     public Jugador(String nombreJugador) {
@@ -30,6 +32,13 @@ public class Jugador {
 
     public Mano getManoJugador() {
         return manoJugador;
+    }
+    public boolean isHaJugado() {
+        return haJugado;
+    }
+
+    public void setHaJugado(boolean haJugado) {
+        this.haJugado = haJugado;
     }
 
     public String getNombreJugador() {

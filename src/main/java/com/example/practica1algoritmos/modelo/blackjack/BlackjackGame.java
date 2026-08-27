@@ -3,18 +3,20 @@ package com.example.practica1algoritmos.modelo.blackjack;
 import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
 import com.example.practica1algoritmos.modelo.DeckOfCards.Mazo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BlackjackGame {
     private Mazo mazoCartas;
     private ArrayList<Jugador> jugadores;
+    private HashMap<String, Jugador> resultadosJugadores;
     private Dealer dealer;
 
     public BlackjackGame(ArrayList<String> nombresJugadores) {
         mazoCartas = new Mazo();
         dealer = new Dealer();
         jugadores = new ArrayList<>();
+        resultadosJugadores = new HashMap<>();
         nombresJugadores.forEach(nombre -> {
             Jugador jugador = new Jugador(nombre);
             jugadores.add(jugador);
@@ -31,16 +33,21 @@ public class BlackjackGame {
         }
         // Y aqui lo de mostrar y voltear, aunque en este caso quizas al dealer
         dealer.getManoJugador().getCartas().get(0).makeFaceUp();
-        dealer.getManoJugador().getCartas().get(0).makeFaceDown();
+        dealer.getManoJugador().getCartas().get(1).makeFaceDown();
     }
 
 
     public void pedirCarta(int indiceJugadorActual) {
-        jugadores.get(indiceJugadorActual).pedirCarta(mazoCartas.obtenerUnaCarta());
+        if (jugadores.get(indiceJugadorActual) != null) {
+            jugadores.get(indiceJugadorActual).pedirCarta(mazoCartas.obtenerUnaCarta());
+        } else System.out.println("El jugador no existe");
     }
 
     public void plantarApuesta(int indiceJugadorActual) {
-        jugadores.get(indiceJugadorActual).plantarse();
+        if (jugadores.get(indiceJugadorActual) != null) {
+            jugadores.get(indiceJugadorActual).plantarse();
+        } else System.out.println("El jugador no existe");
+
     }
 
     public void turnoDealer() {
@@ -48,6 +55,24 @@ public class BlackjackGame {
         while(dealer.isDebeSeguirSacando()) {
             dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
         }
+    }
+
+    public void obtenerGanadores() {
+        for (Jugador j : jugadores) {
+            Mano manoJugador = j.getManoJugador();
+            if (manoJugador.compareTo(getDealer().getManoJugador()) > 1) {
+                resultadosJugadores.put("Ganador", j);
+            } else if (manoJugador.compareTo(getDealer().getManoJugador()) == 0) {
+                resultadosJugadores.put("Empate", j);
+            } else {
+                resultadosJugadores.put("Perdedor", j);
+            }
+        }
+    }
+
+    public boolean todosHanJugado() {
+        return jugadores.stream().filter(k -> k.isHaJugado())
+                .count() == jugadores.size();
     }
 
     public ArrayList<Jugador> getJugadores() {
