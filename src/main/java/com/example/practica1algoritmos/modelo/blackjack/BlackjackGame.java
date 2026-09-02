@@ -29,6 +29,7 @@ public class BlackjackGame {
             for (Jugador j : jugadores) {
                 j.pedirCarta(mazoCartas.obtenerUnaCarta());
             }
+
             dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
         }
         // Y aqui lo de mostrar y voltear, aunque en este caso quizas al dealer
@@ -37,13 +38,13 @@ public class BlackjackGame {
     }
 
     public void pedirCarta(int indiceJugadorActual) {
-        if (jugadores.get(indiceJugadorActual) != null) {
+        if (indiceJugadorActual >= 0 && indiceJugadorActual < jugadores.size()) {
             jugadores.get(indiceJugadorActual).pedirCarta(mazoCartas.obtenerUnaCarta());
         } else System.out.println("El jugador no existe");
     }
 
     public void plantarApuesta(int indiceJugadorActual) {
-        if (jugadores.get(indiceJugadorActual) != null) {
+        if (indiceJugadorActual >= 0 && indiceJugadorActual < jugadores.size()) {
             jugadores.get(indiceJugadorActual).plantarse();
         } else System.out.println("El jugador no existe");
 
@@ -71,6 +72,18 @@ public class BlackjackGame {
         }
     }
 
+    public void revelarCartas() {
+        for (int i = 0; i < jugadores.size(); i++) {
+            Jugador jugadorActual = jugadores.get(i);
+            for (int j = 0; j < jugadorActual.getManoJugador().getCartas().size(); j++) {
+                jugadorActual.getManoJugador().getCartas().get(j).makeFaceUp();
+            }
+        }
+        for (int k = 0; k < dealer.getManoJugador().getCartas().size(); k++) {
+            dealer.getManoJugador().getCartas().get(k).makeFaceUp();
+        }
+    }
+
     public boolean todosHanJugado() {
         return jugadores.stream().allMatch(Jugador::isHaTomadoSuTurno);
     }
@@ -86,4 +99,6 @@ public class BlackjackGame {
     public HashMap<Jugador, String> getResultadosJugadores() {
         return resultadosJugadores;
     }
+
+
 }

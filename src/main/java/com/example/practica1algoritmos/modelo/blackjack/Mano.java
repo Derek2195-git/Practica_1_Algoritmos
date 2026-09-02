@@ -1,5 +1,6 @@
 package com.example.practica1algoritmos.modelo.blackjack;
 
+import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 
 import java.util.ArrayList;
