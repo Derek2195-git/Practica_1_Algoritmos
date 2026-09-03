@@ -43,13 +43,13 @@ public class VentanaMenu {
         botonJugar.setOnAction(e -> mostrarConfiguracion());
 
         Button botonSalir = new Button("Salir");
-        botonJugar.getStyleClass().add("botones-menu");
-        botonJugar.setOnAction(e -> Platform.exit());
+        botonSalir.getStyleClass().add("botones-menu");
+        botonSalir.setOnAction(e -> Platform.exit());
 
         VBox contenido = new VBox(20, titulo, botonJugar, botonSalir);
         contenido.setAlignment(Pos.CENTER);
 
-        Image fondo = new Image(getClass().getResourceAsStream("/recursos/placeholder.png"));
+        Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondos/fondoMenu.png"));
         ImageView fondoView = new ImageView(fondo);
         fondoView.setPreserveRatio(false);
 
@@ -57,9 +57,17 @@ public class VentanaMenu {
         fondoView.fitWidthProperty().bind(root.widthProperty());
         fondoView.fitHeightProperty().bind(root.heightProperty());
 
+        Scene escena = new Scene(root, 800, 600);
+        escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
+        ventana.setScene(escena);
+        ventana.setTitle("BlackJack");
+        ventana.show();
     }
 
     public void mostrarConfiguracion() {
+
+        Label titulo = new Label("Blackjack");
+        titulo.getStyleClass().add("titulo-app");
 
 
         Slider sliderJugadores = new Slider(MIN_JUGADORES, MAX_JUGADORES, MIN_JUGADORES);
@@ -81,17 +89,18 @@ public class VentanaMenu {
         contenedorNombres.setAlignment(Pos.CENTER);
         redibujarCamposNombres(MIN_JUGADORES);
 
+        botonIniciar.getStyleClass().add("boton-iniciar");
         botonIniciar.setDisable(true);
         botonIniciar.setOnAction(e -> iniciarPartida());
 
-        VBox root = new VBox(15, labelCantidad, sliderJugadores, contenedorNombres, botonIniciar);
+        VBox root = new VBox(15, titulo, labelCantidad, sliderJugadores, contenedorNombres, botonIniciar);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
 
         Scene escena = new Scene(root, 360, 414);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         ventana.setScene(escena);
-        ventana.setTitle("Configuración del 21");
+        ventana.setTitle("Configuración del BlackJack");
         ventana.show();
     }
 

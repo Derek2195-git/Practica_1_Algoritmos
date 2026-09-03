@@ -47,7 +47,7 @@
     -fx-border-width: 2;
 }
 
-/* --- Botón de iniciar partida --- */
+/* --- Boton de iniciar Partida --- */
 .boton-iniciar {
     -fx-background-color: #273469;
     -fx-text-fill: #fafaff;
@@ -67,7 +67,7 @@
     -fx-cursor: default;
 }
 
-/* --- Nombre del Dealer y de los jugadores, en la ventana de juego --- */
+/* Dealer y jugadores */
 .nombre-dealer {
     -fx-text-fill: #1E2749;
     -fx-font-size: 18px;
@@ -78,6 +78,22 @@
     -fx-text-fill: #1E2749;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+.botones-menu {
+    -fx-background-color: #273469;
+    -fx-text-fill: #fafaff;
+    -fx-background-radius: 10;
+    -fx-padding: 14 40;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-min-width: 180px;
+}
+
+.botones-menu:hover {
+    -fx-background-color: #30343f;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
 }
 
 

@@ -41,7 +41,7 @@ public class VentanaJuego {
         seccionJugador = new SecciónJugador(juego.getJugadores());
         labelResultado = new Label("");
 
-        secciónAjustes.alSalir(this::volverAVentanaAnterior);
+        secciónAjustes.alSalir(this::volverAMenu);
     }
 
     public void mostrar() {
@@ -50,7 +50,7 @@ public class VentanaJuego {
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
 
-        Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondoCasino.png"));
+        Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondos/fondoCasino.png"));
         ImageView fondoView = new ImageView(fondo);
         fondoView.setPreserveRatio(false);
         fondoView.fitHeightProperty().bind(root.heightProperty());
@@ -66,14 +66,14 @@ public class VentanaJuego {
         stage.show();
     }
 
-    public void volverAVentanaAnterior() {
+    public void volverAMenu() {
         Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Seguro que quieres salir? Se perderá el progreso de la partida.");
         Optional<ButtonType> respuesta = confirmacion.showAndWait();
 
         if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
             VentanaMenu configuracion = new VentanaMenu(stage);
-            configuracion.mostrarConfiguracion();
+            configuracion.mostrarInicio();
         }
     }
 
