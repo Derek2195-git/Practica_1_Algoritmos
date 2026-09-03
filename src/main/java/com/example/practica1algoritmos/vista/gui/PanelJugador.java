@@ -21,6 +21,7 @@ public class PanelJugador {
     public PanelJugador(Jugador jugador, int indiceJugador) {
         this.jugador = jugador;
         mano = new ManoGUI(jugador.getManoJugador(), ALTO_CARTA,ANCHO_CARTA);
+
         String rutaIcono = "/recursos/iconos/iconoJugador" + (indiceJugador + 1) + ".png";
         ImageView icono = new ImageView(new Image(getClass().getResource(rutaIcono).toExternalForm()));
         icono.setFitHeight(ALTO_PANEL);
@@ -28,7 +29,7 @@ public class PanelJugador {
         icono.setPreserveRatio(true);
 
         Label nombre = new Label(jugador.getNombreJugador());
-        contenedor = new VBox(6, icono, mano.getContenedor(), nombre);
+        contenedor = new VBox(6, icono, nombre, mano.getContenedor());
         contenedor.setAlignment(Pos.CENTER);
         contenedor.getStyleClass().add("panel-jugador");
     }
