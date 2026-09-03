@@ -37,8 +37,8 @@ public class ImageButton extends Button {
             Image img = new Image(getClass().getResource(rutaImagen).toExternalForm());
             ImageView iconView = new ImageView(img);
 
-            iconView.setFitHeight(20);
-            iconView.setFitWidth(20);
+            iconView.setFitHeight(40);
+            iconView.setFitWidth(40);
             iconView.setPreserveRatio(true);
 
             setBackground(Background.fill(Color.TRANSPARENT));
