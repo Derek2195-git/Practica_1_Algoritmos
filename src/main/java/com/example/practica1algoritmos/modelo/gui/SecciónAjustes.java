@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.modelo.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -12,8 +12,8 @@ public class SecciónAjustes {
     private HBox contenedor;
 
     public SecciónAjustes() {
-        botonSalir = new ImageButton("/acciones/iconoSalir.png", ALTO_BOTON, ANCHO_BOTON);
-        botonConfiguración = new ImageButton("/acciones/configuracion.png", ALTO_BOTON, ANCHO_BOTON);
+        botonSalir = new ImageButton("/recursos/iconos/iconoSalir.png", ALTO_BOTON, ANCHO_BOTON);
+        botonConfiguración = new ImageButton("/recursos/iconos/configuracion.png", ALTO_BOTON, ANCHO_BOTON);
         botonConfiguración.setDisable(true); // pendiente hasta que acabe las demás clases
 
         contenedor = new HBox(10, botonConfiguración, botonSalir);

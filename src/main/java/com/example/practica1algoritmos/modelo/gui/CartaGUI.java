@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.modelo.gui;
 
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 import javafx.scene.image.Image;

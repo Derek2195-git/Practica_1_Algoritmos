@@ -2,6 +2,7 @@ package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.controlador.ControladorGUI;
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,13 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class VentanaConfiguración {
+public class VentanaMenu {
     private final int MAX_JUGADORES = 4;
     private final int MIN_JUGADORES = 1;
 
@@ -24,24 +27,50 @@ public class VentanaConfiguración {
     private ArrayList<TextField> camposNombre;
     private Button botonIniciar;
 
-    public VentanaConfiguración(Stage ventana) {
+    public VentanaMenu(Stage ventana) {
         this.ventana = ventana;
         contenedorNombres = new VBox(8);
         camposNombre = new ArrayList<>();
         botonIniciar = new Button("Empezar partida");
     }
 
-    public void mostrar() {
+    public void mostrarInicio() {
         Label titulo = new Label("Blackjack");
+        titulo.getStyleClass().add("titulo-app");
+
+        Button botonJugar = new Button("Jugar");
+        botonJugar.getStyleClass().add("botones-menu");
+        botonJugar.setOnAction(e -> mostrarConfiguracion());
+
+        Button botonSalir = new Button("Salir");
+        botonJugar.getStyleClass().add("botones-menu");
+        botonJugar.setOnAction(e -> Platform.exit());
+
+        VBox contenido = new VBox(20, titulo, botonJugar, botonSalir);
+        contenido.setAlignment(Pos.CENTER);
+
+        Image fondo = new Image(getClass().getResourceAsStream("/recursos/placeholder.png"));
+        ImageView fondoView = new ImageView(fondo);
+        fondoView.setPreserveRatio(false);
+
+        StackPane root = new StackPane(fondoView, contenido);
+        fondoView.fitWidthProperty().bind(root.widthProperty());
+        fondoView.fitHeightProperty().bind(root.heightProperty());
+
+    }
+
+    public void mostrarConfiguracion() {
+
 
         Slider sliderJugadores = new Slider(MIN_JUGADORES, MAX_JUGADORES, MIN_JUGADORES);
         sliderJugadores.setMajorTickUnit(1);
         sliderJugadores.setMinorTickCount(0);
         sliderJugadores.setSnapToTicks(true);
-        sliderJugadores.setShowTickLabels(true);
+        sliderJugadores.setShowTickLabels(false);
         sliderJugadores.setShowTickMarks(true);
 
         Label labelCantidad = new Label("Numero de júgadores: " + MIN_JUGADORES);
+        labelCantidad.getStyleClass().add("label-informativo");
 
         sliderJugadores.valueProperty().addListener((obs, valorAnterior, valorNuevo) -> {
             int cantidad = valorNuevo.intValue();
@@ -55,11 +84,12 @@ public class VentanaConfiguración {
         botonIniciar.setDisable(true);
         botonIniciar.setOnAction(e -> iniciarPartida());
 
-        VBox root = new VBox(15, titulo, labelCantidad, sliderJugadores, contenedorNombres, botonIniciar);
+        VBox root = new VBox(15, labelCantidad, sliderJugadores, contenedorNombres, botonIniciar);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
 
         Scene escena = new Scene(root, 360, 414);
+        escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         ventana.setScene(escena);
         ventana.setTitle("Configuración del 21");
         ventana.show();
@@ -72,8 +102,10 @@ public class VentanaConfiguración {
         for (int i = 0; i < cantidadJugadores; i++) {
             TextField campo = new TextField();
             campo.setPromptText("Nombre del jugador " + (i + 1));
+            campo.getStyleClass().add("campo-nombre");
             campo.textProperty().addListener((obs, textoAnterior, textoNuevo) ->
                     validarCampos());
+
             camposNombre.add(campo);
             contenedorNombres.getChildren().add(campo);
         }

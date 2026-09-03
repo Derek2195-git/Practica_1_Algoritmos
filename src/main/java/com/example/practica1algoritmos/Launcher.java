@@ -1,23 +1,13 @@
 package com.example.practica1algoritmos;
 
-import com.example.practica1algoritmos.controlador.ControladorTerminal;
-import com.example.practica1algoritmos.modelo.DeckOfCards.Mazo;
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
-import com.example.practica1algoritmos.modelo.blackjack.Jugador;
-import com.example.practica1algoritmos.modelo.blackjack.Mano;
-import com.example.practica1algoritmos.vista.VistaBlackjackTerminal;
+import com.example.practica1algoritmos.modelo.gui.SecciónAcciones;
+import com.example.practica1algoritmos.modelo.gui.SecciónDealer;
+import com.example.practica1algoritmos.modelo.gui.SecciónJugador;
 import com.example.practica1algoritmos.vista.gui.*;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Launcher extends Application {
 
@@ -30,8 +20,8 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        VentanaConfiguración ventanaConfiguración = new VentanaConfiguración(stage);
-        ventanaConfiguración.mostrar();
+        VentanaMenu ventanaConfiguración = new VentanaMenu(stage);
+        ventanaConfiguración.mostrarConfiguracion();
     }
 
     public static void main(String[] args) {

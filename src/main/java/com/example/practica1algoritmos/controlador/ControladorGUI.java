@@ -22,6 +22,7 @@ public class ControladorGUI {
 
     public void iniciarPartida() {
         juego.repartirCartasIniciales();
+        ventana.actualizarDealer();
         iniciarTurno(0);
     }
 

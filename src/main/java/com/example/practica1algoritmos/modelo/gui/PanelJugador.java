@@ -1,11 +1,10 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.modelo.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class PanelJugador {
@@ -29,6 +28,7 @@ public class PanelJugador {
         icono.setPreserveRatio(true);
 
         Label nombre = new Label(jugador.getNombreJugador());
+        nombre.getStyleClass().add("nombre-jugador");
         contenedor = new VBox(6, icono, nombre, mano.getContenedor());
         contenedor.setAlignment(Pos.CENTER);
         contenedor.getStyleClass().add("panel-jugador");

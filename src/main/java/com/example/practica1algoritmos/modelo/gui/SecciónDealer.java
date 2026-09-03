@@ -1,11 +1,11 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.modelo.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.Dealer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class SecciónDealer {
     private final int ALTO_CARTA = 110;
@@ -14,24 +14,26 @@ public class SecciónDealer {
     private final int ANCHO_ICONO = 96;
 
     private ManoGUI mano;
-    private HBox contenedor;
+    private VBox contenedor;
 
     public SecciónDealer(Dealer dealer) {
         mano = new ManoGUI(dealer.getManoJugador(), ALTO_CARTA, ANCHO_CARTA);
 
         Label nombre = new Label("Dealer");
+        nombre.getStyleClass().add("nombre-dealer");
         ImageView icono = new ImageView(new Image(getClass().getResource("/recursos/iconos/iconoDealer.png").toExternalForm()));
         icono.setFitHeight(ALTO_ICONO);
         icono.setFitWidth(ANCHO_ICONO);
         icono.setPreserveRatio(true);
 
-        contenedor = new HBox(8, icono, nombre, mano.getContenedor());
+        contenedor = new VBox(8, icono, nombre, mano.getContenedor());
         contenedor.setAlignment(Pos.CENTER);
         contenedor.getStyleClass().add("seccion-dealer");
 
+
     }
 
-    public HBox getContenedor() {
+    public VBox getContenedor() {
         return contenedor;
     }
 

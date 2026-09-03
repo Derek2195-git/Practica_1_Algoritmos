@@ -2,12 +2,19 @@ package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
+import com.example.practica1algoritmos.modelo.gui.SecciónAcciones;
+import com.example.practica1algoritmos.modelo.gui.SecciónAjustes;
+import com.example.practica1algoritmos.modelo.gui.SecciónDealer;
+import com.example.practica1algoritmos.modelo.gui.SecciónJugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -38,12 +45,21 @@ public class VentanaJuego {
     }
 
     public void mostrar() {
-        VBox raiz = new VBox(15, secciónAjustes.getContenedor(), seccionDealer.getContenedor(),
+        VBox root = new VBox(15, secciónAjustes.getContenedor(), seccionDealer.getContenedor(),
                 seccionAcciones.getContenedor(), seccionJugador.getContenedor(), labelResultado);
-        raiz.setAlignment(Pos.CENTER);
-        raiz.setPadding(new Insets(20));
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20));
 
-        Scene escena = new Scene(raiz, 800, 600);
+        Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondoCasino.png"));
+        ImageView fondoView = new ImageView(fondo);
+        fondoView.setPreserveRatio(false);
+        fondoView.fitHeightProperty().bind(root.heightProperty());
+        fondoView.fitWidthProperty().bind(root.widthProperty());
+
+        StackPane ventanaPrincipal = new StackPane();
+        ventanaPrincipal.getChildren().addAll(fondoView, root);
+
+        Scene escena = new Scene(ventanaPrincipal, 800, 600);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         stage.setScene(escena);
         stage.setTitle("BlackJack");
@@ -56,8 +72,8 @@ public class VentanaJuego {
         Optional<ButtonType> respuesta = confirmacion.showAndWait();
 
         if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
-            VentanaConfiguración configuracion = new VentanaConfiguración(stage);
-            configuracion.mostrar();
+            VentanaMenu configuracion = new VentanaMenu(stage);
+            configuracion.mostrarConfiguracion();
         }
     }
 
@@ -78,7 +94,7 @@ public class VentanaJuego {
     }
 
     public void habilitarAcciones(boolean habilitado) {
-        seccionAcciones.habilitarBotones(habilitado);
+        seccionAcciones.habilitarBotones(habilitado, habilitado);
     }
 
     public void mostrarResultados(HashMap<Jugador, String> resultados) {

@@ -32,7 +32,7 @@ public class BlackjackGame {
 
             dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
         }
-        // Y aqui lo de mostrar y voltear, aunque en este caso quizas al dealer
+        // Y aqui lo de mostrarConfiguracion y voltear, aunque en este caso quizas al dealer
         dealer.getManoJugador().getCartas().get(0).makeFaceUp();
         dealer.getManoJugador().getCartas().get(1).makeFaceDown();
     }
