@@ -45,11 +45,11 @@ public class VentanaConfiguración {
         sliderJugadores.valueProperty().addListener((obs, valorAnterior, valorNuevo) -> {
             int cantidad = valorNuevo.intValue();
             labelCantidad.setText("Número de jugadores " + cantidad);
-            // Aqui va un redraw
+            redibujarCamposNombres(cantidad);
         });
 
         contenedorNombres.setAlignment(Pos.CENTER);
-        // Quizas otro redraw aqui para el boton?
+        redibujarCamposNombres(MIN_JUGADORES);
 
         botonIniciar.setDisable(true);
         botonIniciar.setOnAction(e -> iniciarPartida());
@@ -58,7 +58,7 @@ public class VentanaConfiguración {
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
 
-        Scene escena = new Scene(root, 800, 600);
+        Scene escena = new Scene(root, 360, 414);
         ventana.setScene(escena);
         ventana.setTitle("Configuración del 21");
         ventana.show();
@@ -70,7 +70,7 @@ public class VentanaConfiguración {
 
         for (int i = 0; i < cantidadJugadores; i++) {
             TextField campo = new TextField();
-            campo.setText("Nombre del jugador " + (i + 1));
+            campo.setPromptText("Nombre del jugador " + (i + 1));
             campo.textProperty().addListener((obs, textoAnterior, textoNuevo) ->
                     validarCampos());
             camposNombre.add(campo);
@@ -92,7 +92,7 @@ public class VentanaConfiguración {
         }
 
         BlackjackGame juego = new BlackjackGame(nombres);
-        VentanaJuego ventanaJuego = new VentanaJuego();
+        VentanaJuego ventanaJuego = new VentanaJuego(ventana, juego);
         ventanaJuego.mostrar();
     }
 }

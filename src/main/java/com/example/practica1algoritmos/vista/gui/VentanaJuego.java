@@ -12,8 +12,13 @@ public class VentanaJuego {
     private Stage stage;
     private BlackjackGame juego;
 
+    public VentanaJuego(Stage stage, BlackjackGame juego) {
+        this.stage = stage;
+        this.juego = juego;
+    }
+
     public void mostrar() {
-        Label texto = new Label("Partida iniciada con " + juego.getJugadores().size() + " jugadores");
+        Label texto = new Label("Partida iniciada con " + " jugadores");
         VBox raiz = new VBox(texto);
         raiz.setAlignment(Pos.CENTER);
 
