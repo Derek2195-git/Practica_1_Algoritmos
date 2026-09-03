@@ -4,13 +4,11 @@ import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.IOException;
-
-public class CartaView extends ImageView {
+public class CartaGUI extends ImageView {
     private String rutaReverso = "com/example/practica1algoritmos/recursos/baraja/1_reverso.png";
     private CartaInglesa cartaAMostrar;
 
-    public CartaView(int alto, int ancho, CartaInglesa cartaAMostrar) {
+    public CartaGUI(int alto, int ancho, CartaInglesa cartaAMostrar) {
         this.cartaAMostrar = cartaAMostrar;
         setFitHeight(alto);
         setFitWidth(ancho);
