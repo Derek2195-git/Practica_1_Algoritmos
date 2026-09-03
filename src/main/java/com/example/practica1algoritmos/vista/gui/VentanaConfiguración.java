@@ -44,7 +44,7 @@ public class VentanaConfiguración {
 
         sliderJugadores.valueProperty().addListener((obs, valorAnterior, valorNuevo) -> {
             int cantidad = valorNuevo.intValue();
-            labelCantidad.setText("Número de jugadores");
+            labelCantidad.setText("Número de jugadores " + cantidad);
             // Aqui va un redraw
         });
 
