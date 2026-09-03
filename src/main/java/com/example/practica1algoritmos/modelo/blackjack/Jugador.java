@@ -6,28 +6,22 @@ public class Jugador {
     protected Mano manoJugador;
     private String nombreJugador;
     private boolean seHaPlantado;
-    private boolean sigueJugando;
 
     public Jugador() {
         manoJugador = new Mano();
         nombreJugador = "Jugador1";
         seHaPlantado = false;
-        sigueJugando = true;
     }
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
         manoJugador = new Mano();
         seHaPlantado = false;
-        sigueJugando = true;
     }
 
 
     public void pedirCarta(CartaInglesa carta) {
         manoJugador.agregarCarta(carta);
-        if (manoJugador.isManoDesbordada()) {
-            sigueJugando = false; // se pasó, termina su turno automáticamente
-        }
     }
 
     public void mostrarSusCartas() {
@@ -58,7 +52,6 @@ public class Jugador {
         return seHaPlantado;
     }
 
-    public boolean isSigueJugando() { return sigueJugando;}
 
     public void setManoJugador(Mano manoJugador) {
         this.manoJugador = manoJugador;
@@ -71,8 +64,6 @@ public class Jugador {
     public void setSeHaPlantado(boolean seHaPlantado) {
         this.seHaPlantado = seHaPlantado;
     }
-
-    public void setSigueJugando(boolean sigueJugando) { this.sigueJugando = sigueJugando; }
 
     @Override
     public String toString() {
