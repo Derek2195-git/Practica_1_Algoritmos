@@ -1,5 +1,6 @@
 package com.example.practica1algoritmos.vista.gui;
 
+import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class VentanaConfiguración {
@@ -84,6 +86,13 @@ public class VentanaConfiguración {
     }
 
     private void iniciarPartida() {
+        ArrayList<String> nombres = new ArrayList<>();
+        for (TextField campo : camposNombre) {
+            nombres.add(campo.getText().trim());
+        }
 
+        BlackjackGame juego = new BlackjackGame(nombres);
+        VentanaJuego ventanaJuego = new VentanaJuego();
+        ventanaJuego.mostrar();
     }
 }
