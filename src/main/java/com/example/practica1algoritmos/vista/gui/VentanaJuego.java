@@ -11,10 +11,17 @@ public class VentanaJuego {
 
     private Stage stage;
     private BlackjackGame juego;
+    private SecciónAjustes secciónAjustes;
+    private SecciónDealer seccionDealer;
+    private SecciónAcciones seccionAcciones;
+    private SecciónJugador seccionJugador;
+    private Label labelResultado;
 
     public VentanaJuego(Stage stage, BlackjackGame juego) {
         this.stage = stage;
         this.juego = juego;
+
+
     }
 
     public void mostrar() {

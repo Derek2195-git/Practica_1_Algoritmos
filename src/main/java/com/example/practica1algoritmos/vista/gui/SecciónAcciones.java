@@ -13,7 +13,7 @@ public class SecciónAcciones {
     private HBox contenedor;
 
     public SecciónAcciones() {
-        botonPedirCarta = new ImageButton("Pedir otra carta", "/recursos/iconos/placeholder.png");
+        botonPedirCarta = new ImageButton("Pedir otra carta", "/recursos/iconos/iconoPedirCarta.png");
         botonPlantarse = new ImageButton("Plantarse", "/recursos/iconos/placeholder.png");
 
         contenedor = new HBox(15, botonPedirCarta, botonPlantarse);
