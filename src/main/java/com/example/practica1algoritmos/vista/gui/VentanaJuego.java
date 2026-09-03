@@ -34,7 +34,7 @@ public class VentanaJuego {
         seccionJugador = new SecciónJugador(juego.getJugadores());
         labelResultado = new Label("");
 
-        //secciónAjustes.alSalir();
+        secciónAjustes.alSalir(this::volverAVentanaAnterior);
     }
 
     public void mostrar() {
@@ -43,7 +43,7 @@ public class VentanaJuego {
         raiz.setAlignment(Pos.CENTER);
         raiz.setPadding(new Insets(20));
 
-        Scene escena = new Scene(raiz, 500, 500);
+        Scene escena = new Scene(raiz, 800, 600);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         stage.setScene(escena);
         stage.setTitle("BlackJack");

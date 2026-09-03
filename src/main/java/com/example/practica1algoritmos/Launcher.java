@@ -30,89 +30,14 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        ArrayList<String> nombres = new ArrayList<>();
-        nombres.add("Derek");
-        nombres.add("Kaede");
-
-        juego = new BlackjackGame(nombres);
-        juego.repartirCartasIniciales();
-
-        seccionDealer = new SecciónDealer(juego.getDealer());
-        seccionJugadores = new SecciónJugador(juego.getJugadores());
-        seccionAcciones = new SecciónAcciones();
-        labelResultado = new Label("");
-
-        seccionAcciones.alPedirCarta(() -> {
-            juego.pedirCarta(indiceTurnoActual);
-            refrescarTurnoActual();
-        });
-        seccionAcciones.alPlantarse(() -> {
-            juego.plantarApuesta(indiceTurnoActual);
-            refrescarTurnoActual();
-        });
-
-        iniciarTurno(0);
-
-        VBox raiz = new VBox(20,
-                seccionDealer.getContenedor(),
-                seccionAcciones.getContenedor(),
-                seccionJugadores.getContenedor(),
-                labelResultado);
-        raiz.setAlignment(Pos.CENTER);
-        raiz.setPadding(new Insets(20));
-
-        Scene escena = new Scene(raiz, 900, 500);
-        escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
-        stage.setScene(escena);
-        stage.setTitle("antiarduino llega el profe ibarra y para a omar 'Omar tu no eres asi', 'Tienes razon, pero Omar murió' y entonces omar suelta un rayo" +
-                "que desintegra todo el equipamiento del laboratorio D y le quita el pegamento a la protoboard");
-        stage.show();
-
-    }
-
-    private void iniciarTurno(int indice) {
-        indiceTurnoActual = indice;
-        juego.getJugadores().get(indiceTurnoActual).mostrarSusCartas();
-        seccionJugadores.redibujar(indiceTurnoActual, true);
-    }
-
-    private void refrescarTurnoActual() {
-        seccionJugadores.redibujar(indiceTurnoActual, true);
-
-        Jugador jugadorActual = juego.getJugadores().get(indiceTurnoActual);
-        if (jugadorActual.isHaTomadoSuTurno()) {
-            jugadorActual.ocultarSusCartas();
-            avanzarSiguienteTurno();
-        }
-    }
-
-    private void avanzarSiguienteTurno() {
-        int siguiente = indiceTurnoActual + 1;
-        if (siguiente < juego.getJugadores().size()) {
-            iniciarTurno(siguiente);
-        } else {
-            seccionJugadores.redibujar(-1, false);
-            seccionAcciones.habilitarBotones(false);
-            terminarRonda();
-        }
-    }
-
-    private void terminarRonda() {
-        juego.turnoDealer();
-        juego.obtenerGanadores();
-        juego.revelarCartas();
-
-        seccionDealer.redibujarDealer();
-        seccionJugadores.redibujar(-1, false);
-
-        StringBuilder resultado = new StringBuilder();
-        juego.getResultadosJugadores().forEach((j, r) ->
-                resultado.append(j.getNombreJugador()).append(": ").append(r).append("  "));
-        labelResultado.setText(resultado.toString());
+        VentanaConfiguración ventanaConfiguración = new VentanaConfiguración(stage);
+        ventanaConfiguración.mostrar();
     }
 
     public static void main(String[] args) {
-        // Terminal
+        /*
+        Terminal
+         */
 
 //        ArrayList<String> nombresJugadores = new ArrayList<>();
 //        VistaBlackjackTerminal vista = new VistaBlackjackTerminal();
@@ -122,13 +47,9 @@ public class Launcher extends Application {
 //        }
 //        ControladorTerminal controlador = new ControladorTerminal(nombresJugadores);
 //        controlador.iniciarJuego();
-        // GUI
+        /*
+        GUI
+         */
         launch();
-        //Application.launch(HelloApplication.class, args);
-    }
-
-    public void ejecutarGUI(Stage stage) {
-        //VentanaConfiguración configuración = new VentanaConfiguración(stage);
-        //onfiguración.mostrar();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.practica1algoritmos.vista.gui;
 
+import com.example.practica1algoritmos.controlador.ControladorGUI;
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -94,5 +95,8 @@ public class VentanaConfiguración {
         BlackjackGame juego = new BlackjackGame(nombres);
         VentanaJuego ventanaJuego = new VentanaJuego(ventana, juego);
         ventanaJuego.mostrar();
+
+        ControladorGUI controlador = new ControladorGUI(juego, ventanaJuego);
+        controlador.iniciarPartida();
     }
 }

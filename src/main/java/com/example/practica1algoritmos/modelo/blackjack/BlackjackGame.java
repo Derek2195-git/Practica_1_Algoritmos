@@ -100,5 +100,13 @@ public class BlackjackGame {
         return resultadosJugadores;
     }
 
+    public boolean dealerDebeSeguirSacando() {
+        return dealer.isDebeSeguirSacando();
+    }
+
+    public void dealerPideUnaCarta() {
+        dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
+    }
+
 
 }

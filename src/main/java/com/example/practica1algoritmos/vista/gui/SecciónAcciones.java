@@ -25,7 +25,7 @@ public class SecciónAcciones {
     }
 
     public void alPedirCarta(Runnable accion) {
-        botonPlantarse.setOnAction(e -> accion.run());
+        botonPedirCarta.setOnAction(e -> accion.run());
     }
 
     public void alPlantarse(Runnable accion) {
