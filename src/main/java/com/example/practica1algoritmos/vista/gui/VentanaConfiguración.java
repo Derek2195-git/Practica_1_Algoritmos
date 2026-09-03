@@ -60,6 +60,30 @@ public class VentanaConfiguración {
         ventana.setScene(escena);
         ventana.setTitle("Configuración del 21");
         ventana.show();
+    }
+
+    private void redibujarCamposNombres(int cantidadJugadores) {
+        contenedorNombres.getChildren().clear();
+        camposNombre.clear();
+
+        for (int i = 0; i < cantidadJugadores; i++) {
+            TextField campo = new TextField();
+            campo.setText("Nombre del jugador " + (i + 1));
+            campo.textProperty().addListener((obs, textoAnterior, textoNuevo) ->
+                    validarCampos());
+            camposNombre.add(campo);
+            contenedorNombres.getChildren().add(campo);
+        }
+        validarCampos();
+    }
+
+    private void validarCampos() {
+        boolean todosLosCamposLlenados = camposNombre.stream()
+                .allMatch(c -> !c.getText().trim().isEmpty());
+        botonIniciar.setDisable(!todosLosCamposLlenados);
+    }
+
+    private void iniciarPartida() {
 
     }
 }
