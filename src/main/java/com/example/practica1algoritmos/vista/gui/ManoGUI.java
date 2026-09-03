@@ -69,7 +69,7 @@ public class ManoGUI {
 
         for (int i = 0; i < numeroBotones; i++) {
             int numeroPagina = i;
-            String rutaImagen = "/recursos/botones/numero" + (i + 1) + ".png";
+            String rutaImagen = "/recursos/iconos/numero" + (i + 1) + ".png";
             ImageButton boton = new ImageButton(rutaImagen, 16, 16);
             boton.setOnAction(e -> {
                 paginaActual = numeroPagina;

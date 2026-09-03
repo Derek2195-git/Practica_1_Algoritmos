@@ -1,0 +1,12 @@
+.panel-jugador {
+    -fx-padding: 10;
+    -fx-background-radius: 8;
+}
+
+.jugador-en-turno-propio {
+    -fx-background-color: #99f6dd;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
