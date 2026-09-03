@@ -28,11 +28,12 @@ public class SecciónAcciones {
         botonPlantarse.setOnAction(e -> accion.run());
     }
 
-    public void alPedirCarta(Runnable accion) {
+    public void alPlantarse(Runnable accion) {
         botonPlantarse.setOnAction(e -> accion.run());
     }
 
-    public void alPedirCarta(Runnable accion) {
-        botonPlantarse.setOnAction(e -> accion.run());
+    public void habilitarBotones(boolean estaHabilitado) {
+        botonPedirCarta.setDisable(!estaHabilitado);
+        botonPlantarse.setDisable(!estaHabilitado);
     }
 }
