@@ -23,6 +23,15 @@ public class SecciónJugador {
         }
     }
 
+    public PanelJugador getPanelJugador(Jugador jugador) {
+        for (PanelJugador panel : panelesJugador) {
+            if (panel.getJugador().equals(jugador)) {
+                return panel;
+            }
+        }
+        return null;
+    }
+
     public HBox getContenedor() {
         return contenedor;
     }

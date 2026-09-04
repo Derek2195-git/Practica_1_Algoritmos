@@ -11,6 +11,30 @@
     -fx-background-radius: 8;
 }
 
+.jugador-victorioso {
+    -fx-background-color: #ccb700;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.jugador-empatado {
+    -fx-background-color: #716d72;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.jugador-derrotado {
+    -fx-background-color: #963030;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
 /* --- Fondo general de las ventanas --- */
 .root {
     -fx-background-color: #1e2749;

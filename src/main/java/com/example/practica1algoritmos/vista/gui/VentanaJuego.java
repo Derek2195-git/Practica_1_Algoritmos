@@ -2,10 +2,7 @@ package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
-import com.example.practica1algoritmos.modelo.gui.SecciónAcciones;
-import com.example.practica1algoritmos.modelo.gui.SecciónAjustes;
-import com.example.practica1algoritmos.modelo.gui.SecciónDealer;
-import com.example.practica1algoritmos.modelo.gui.SecciónJugador;
+import com.example.practica1algoritmos.modelo.gui.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +11,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,10 +44,17 @@ public class VentanaJuego {
     }
 
     public void mostrar() {
-        VBox root = new VBox(15, secciónAjustes.getContenedor(), seccionDealer.getContenedor(),
+        HBox filaAjustes = secciónAjustes.getContenedor();
+        BorderPane.setAlignment(filaAjustes, Pos.TOP_LEFT);
+        BorderPane.setMargin(filaAjustes, new Insets(15));
+
+        VBox contenedorCentral = new VBox(15, seccionDealer.getContenedor(),
                 seccionAcciones.getContenedor(), seccionJugador.getContenedor(), labelResultado);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(20));
+        contenedorCentral.setAlignment(Pos.CENTER);
+
+        BorderPane root = new BorderPane();
+        root.setTop(filaAjustes);
+        root.setCenter(contenedorCentral);
 
         Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondos/fondoCasino.png"));
         ImageView fondoView = new ImageView(fondo);
@@ -56,13 +62,13 @@ public class VentanaJuego {
         fondoView.fitHeightProperty().bind(root.heightProperty());
         fondoView.fitWidthProperty().bind(root.widthProperty());
 
-        StackPane ventanaPrincipal = new StackPane();
-        ventanaPrincipal.getChildren().addAll(fondoView, root);
+        StackPane ventanaPrincipal = new StackPane(fondoView, root);
 
         Scene escena = new Scene(ventanaPrincipal, 800, 600);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         stage.setScene(escena);
         stage.setTitle("BlackJack");
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -98,7 +104,25 @@ public class VentanaJuego {
     }
 
     public void mostrarResultados(HashMap<Jugador, String> resultados) {
+        resultados.forEach((j, c) -> {
+            PanelJugador panelJugadorActual = seccionJugador.getPanelJugador(j);
+            if (panelJugadorActual != null) {
+                if (c.equalsIgnoreCase("Ganador")) {
+                    panelJugadorActual.setEstadoResultado(1);
+                    panelJugadorActual.getContenedor().getStyleClass().add("jugador-victorioso");
+                } else if (c.equalsIgnoreCase("Empate")){
+                    panelJugadorActual.setEstadoResultado(0);
+                    panelJugadorActual.getContenedor().getStyleClass().add("jugador-empatado");
+                } else {
+                    panelJugadorActual.setEstadoResultado(-1);
+                    panelJugadorActual.getContenedor().getStyleClass().add("jugador-derrotado");
+                }
+                panelJugadorActual.redibujar(false);
+                panelJugadorActual.mostrarIconoResultado(true);
+            }
+        });
         StringBuilder texto = new StringBuilder();
+
         resultados.forEach((jugador, resultado) ->
                 texto.append(jugador.getNombreJugador()).append(": ").append(resultado).append("  "));
         labelResultado.setText(texto.toString());

@@ -60,6 +60,7 @@ public class VentanaMenu {
         Scene escena = new Scene(root, 800, 600);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         ventana.setScene(escena);
+        ventana.centerOnScreen();
         ventana.setTitle("BlackJack");
         ventana.show();
     }
@@ -100,6 +101,7 @@ public class VentanaMenu {
         Scene escena = new Scene(root, 360, 414);
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
         ventana.setScene(escena);
+        ventana.centerOnScreen();
         ventana.setTitle("Configuración del BlackJack");
         ventana.show();
     }

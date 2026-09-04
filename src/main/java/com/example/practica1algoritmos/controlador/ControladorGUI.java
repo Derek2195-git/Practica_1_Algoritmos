@@ -52,14 +52,22 @@ public class ControladorGUI {
             return; // sigue siendo su turno, no hacemos nada más
         }
 
-        jugadorActual.ocultarSusCartas();
-        int siguienteIndice = numeroJugadorActual + 1;
+        ventana.habilitarAcciones(false);
 
-        if (siguienteIndice < juego.getJugadores().size()) {
-            iniciarTurno(siguienteIndice);
-        } else {
-            iniciarTurnoDealer();
-        }
+        PauseTransition pausa = new PauseTransition(Duration.millis(1500));
+        pausa.setOnFinished(e -> {
+            jugadorActual.ocultarSusCartas();
+            int siguienteIndice = numeroJugadorActual + 1;
+
+            if (siguienteIndice < juego.getJugadores().size()) {
+                iniciarTurno(siguienteIndice);
+            } else {
+                iniciarTurnoDealer();
+            }
+        });
+        pausa.play();
+
+
     }
 
     private void iniciarTurnoDealer() {
@@ -88,6 +96,8 @@ public class ControladorGUI {
             terminarRonda();
         }
     }
+
+
 
     private void terminarRonda() {
         juego.obtenerGanadores();
