@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.modelo.gui;
+package com.example.practica1algoritmos.vista.gui;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

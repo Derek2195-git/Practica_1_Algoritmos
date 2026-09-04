@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.modelo.gui;
+package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import javafx.geometry.Pos;
@@ -72,8 +72,6 @@ public class PanelJugador {
     public void setEstadoResultado(int estadoResultado) {
         this.estadoResultado = estadoResultado;
     }
-
-
 
     public Label actualizarNombre(String nombre) {
         return new Label(nombre);

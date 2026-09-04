@@ -97,8 +97,6 @@ public class ControladorGUI {
         }
     }
 
-
-
     private void terminarRonda() {
         juego.obtenerGanadores();
         juego.revelarCartas();

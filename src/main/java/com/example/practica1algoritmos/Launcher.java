@@ -1,9 +1,9 @@
 package com.example.practica1algoritmos;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
-import com.example.practica1algoritmos.modelo.gui.SecciónAcciones;
-import com.example.practica1algoritmos.modelo.gui.SecciónDealer;
-import com.example.practica1algoritmos.modelo.gui.SecciónJugador;
+import com.example.practica1algoritmos.vista.gui.SecciónAcciones;
+import com.example.practica1algoritmos.vista.gui.SecciónDealer;
+import com.example.practica1algoritmos.vista.gui.SecciónJugador;
 import com.example.practica1algoritmos.vista.gui.*;
 import javafx.application.Application;
 import javafx.scene.control.Label;

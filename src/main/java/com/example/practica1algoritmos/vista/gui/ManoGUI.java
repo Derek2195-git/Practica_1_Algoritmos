@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.modelo.gui;
+package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.Mano;
 import javafx.geometry.Pos;

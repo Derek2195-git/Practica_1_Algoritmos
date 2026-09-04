@@ -2,7 +2,6 @@ package com.example.practica1algoritmos.vista.gui;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
-import com.example.practica1algoritmos.modelo.gui.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
