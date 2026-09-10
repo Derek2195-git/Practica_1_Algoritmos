@@ -1,6 +1,7 @@
 module com.example.practica1algoritmos {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
     opens com.example.practica1algoritmos to javafx.fxml;

@@ -12,6 +12,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class VentanaMenu {
     private Stage ventana;
     private VBox contenedorNombres;
     private ArrayList<TextField> camposNombre;
+    private ArrayList<ImageButton> botonesCantidad;
     private Button botonIniciar;
 
     public VentanaMenu(Stage ventana) {
@@ -70,23 +72,10 @@ public class VentanaMenu {
         Label titulo = new Label("Blackjack");
         titulo.getStyleClass().add("titulo-app");
 
-
-        Slider sliderJugadores = new Slider(MIN_JUGADORES, MAX_JUGADORES, MIN_JUGADORES);
-        sliderJugadores.setMajorTickUnit(1);
-        sliderJugadores.setMinorTickCount(0);
-        sliderJugadores.setSnapToTicks(true);
-        sliderJugadores.setShowTickLabels(false);
-        sliderJugadores.setShowTickMarks(true);
-
         Label labelCantidad = new Label("Numero de júgadores: " + MIN_JUGADORES);
         labelCantidad.getStyleClass().add("label-informativo");
 
-        sliderJugadores.valueProperty().addListener((obs, valorAnterior, valorNuevo) -> {
-            int cantidad = valorNuevo.intValue();
-            labelCantidad.setText("Número de jugadores " + cantidad);
-            redibujarCamposNombres(cantidad);
-        });
-
+        HBox botonesCantidadJugadores = crearBotonesCantidadJugadores(labelCantidad);
         contenedorNombres.setAlignment(Pos.CENTER);
         redibujarCamposNombres(MIN_JUGADORES);
 
@@ -94,7 +83,7 @@ public class VentanaMenu {
         botonIniciar.setDisable(true);
         botonIniciar.setOnAction(e -> iniciarPartida());
 
-        VBox root = new VBox(15, titulo, labelCantidad, sliderJugadores, contenedorNombres, botonIniciar);
+        VBox root = new VBox(15, titulo, labelCantidad, contenedorNombres, botonIniciar);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
 
@@ -142,4 +131,23 @@ public class VentanaMenu {
         ControladorGUI controlador = new ControladorGUI(juego, ventanaJuego);
         controlador.iniciarPartida();
     }
+
+    private HBox crearBotonesCantidadJugadores(Label cantidadJugadores) {
+        botonesCantidad = new ArrayList<>();
+        HBox contenedorBotones = new HBox(10);
+        contenedorBotones.setAlignment(Pos.CENTER);
+
+        for (int i = MIN_JUGADORES; i < MAX_JUGADORES; i++) {
+            int cantidad = i;
+            ImageButton boton = new ImageButton("/recursos/iconos/numero" + cantidad + ".png", 64, 64);
+            boton.setOnAction(e -> seleccionarCantidadJugadores());
+            botonesCantidad.add(boton);
+            contenedorBotones.getChildren().add(boton);
+        }
+
+        botonesCantidad.get(0).getStyleClass().add("boton-jugadores-seleccionado");
+        return contenedorBotones;
+    }
+
+    public void seleccionarCantidadJugadores(int cantidad, Label labelCantidad)
 }

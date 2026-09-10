@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 
 public class ManoGUI {
 
-    // TODO: Esto de cartas por pagina lo dejare incompleto en lo que acabo lo demás
     public final int CARTAS_POR_PAGINA = 4;
 
     private Mano mano;
@@ -33,7 +32,6 @@ public class ManoGUI {
         contenedor = new VBox(6, filaCartas, filaBotonesPagina);
         contenedor.setAlignment(Pos.CENTER);
 
-        //redibujarMano();
     }
 
     public VBox getContenedor() {

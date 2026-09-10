@@ -1,5 +1,6 @@
 package com.example.practica1algoritmos.vista.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
@@ -17,6 +18,7 @@ public class SecciónAjustes {
 
         contenedor = new HBox(10, botonSalir);
         contenedor.setAlignment(Pos.CENTER_LEFT);
+        contenedor.setPadding(new Insets(30, 0, 0, 20));
     }
 
     public HBox getContenedor() {

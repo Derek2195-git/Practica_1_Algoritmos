@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -44,8 +46,8 @@ public class VentanaJuego {
 
     public void mostrar() {
         HBox filaAjustes = secciónAjustes.getContenedor();
-        BorderPane.setAlignment(filaAjustes, Pos.TOP_LEFT);
-        BorderPane.setMargin(filaAjustes, new Insets(15));
+        BorderPane.setAlignment(filaAjustes, Pos.TOP_CENTER);
+        //BorderPane.setMargin(filaAjustes, new Insets(15));
 
         VBox contenedorCentral = new VBox(15, seccionDealer.getContenedor(),
                 seccionAcciones.getContenedor(), seccionJugador.getContenedor(), labelResultado);
@@ -126,5 +128,7 @@ public class VentanaJuego {
                 texto.append(jugador.getNombreJugador()).append(": ").append(resultado).append("  "));
         labelResultado.setText(texto.toString());
     }
+
+
 
 }

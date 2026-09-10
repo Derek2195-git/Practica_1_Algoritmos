@@ -4,6 +4,8 @@ import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import com.example.practica1algoritmos.vista.gui.VentanaJuego;
 import javafx.animation.PauseTransition;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class ControladorGUI {
