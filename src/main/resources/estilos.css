@@ -120,31 +120,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
 }
 
-
-/* Slider de la práctica 6 */
-
-.slider .track {
-    -fx-background-color: #2de79f;
-    -fx-background-radius: 4;
-    -fx-pref-height: 6px;
+.boton-jugadores-seleccionado {
+    -fx-effect: dropshadow(gaussian, rgba(9,217,138,0.6), 20, 0, 0, 0);
 }
-
-.slider .thumb {
-    -fx-background-color: #09d98a;
-    -fx-background-radius: 50%;
-    -fx-pref-width: 18px;
-    -fx-pref-height: 18px;
-    -fx-effect: dropshadow(gaussian, rgba(9,217,138,0.5), 6, 0, 0, 0);
-}
-
-.slider .thumb:hover {
-    -fx-background-color: #14f199;
-}
-
-.slider .axis {
-    -fx-tick-label-fill: #ffffff;
-    -fx-font-size: 11px;
-}
-
-.slider:disabled .track { -fx-background-color: #555555; }
-.slider:disabled .thumb { -fx-background-color: #777777; -fx-effect: none; }
