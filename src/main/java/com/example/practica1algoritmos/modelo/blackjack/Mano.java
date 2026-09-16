@@ -20,7 +20,7 @@ public class Mano implements Comparable<Mano> {
         puntaje = 0;
         int asesEncontrados = 0;
         // A fuerzas voy a modificar esto
-        for(CartaInglesa cartaActual : cartas) {
+        for(CartaInglesa cartaActual : getCartas()) {
             int valorCarta = obtenerValorCarta(cartaActual);
             if (cartaActual.getValor() == 14) {
                 asesEncontrados++;
@@ -117,8 +117,7 @@ public class Mano implements Comparable<Mano> {
     @Override
     public String toString() {
         StringBuilder cadena = new StringBuilder();
-        // Cambiar esto por algo para la pila
-        for (CartaInglesa carta : cartas) {
+        for (CartaInglesa carta : getCartas()) {
             cadena.append(carta.toString()).append(" ");
         }
         return cadena.toString();
