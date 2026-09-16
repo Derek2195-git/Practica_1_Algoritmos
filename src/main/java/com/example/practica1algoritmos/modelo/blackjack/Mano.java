@@ -47,10 +47,21 @@ public class Mano implements Comparable<Mano> {
         return valorCarta;
     }
 
-    // Voy a tener que modificar esto
     public ArrayList<CartaInglesa> getCartas() {
-        // Quizas aqui puedo hacer trampa y retornar un arraylist con los valores de la pila?
-        return cartas;
+        Pila<CartaInglesa> pilaAux = new Pila<>();
+        ArrayList<CartaInglesa> ordenOriginalCartas = new ArrayList<>();
+
+        while(!cartas.pilaVacia()) {
+            pilaAux.push(cartas.pop());
+        }
+        while(!pilaAux.pilaVacia()) {
+            CartaInglesa carta = pilaAux.pop();
+            ordenOriginalCartas.add(carta);
+            cartas.push(carta);
+        }
+
+
+        return ordenOriginalCartas;
     }
 
     public boolean isManoDesbordada() {
