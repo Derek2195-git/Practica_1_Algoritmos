@@ -86,6 +86,10 @@ public class Mano implements Comparable<Mano> {
         return calcularPuntaje();
     }
 
+    public CartaInglesa quitarUltimaCarta() {
+        
+    }
+
     /**
      * Metodo que compara la puntuacion de dos manos y saca la ganadora
      * 0 - Hubo empate
