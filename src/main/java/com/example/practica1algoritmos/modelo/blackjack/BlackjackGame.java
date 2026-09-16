@@ -105,7 +105,9 @@ public class BlackjackGame {
     }
 
     public void dealerPideUnaCarta() {
+
         dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
+        dealer.mostrarSusCartas();
     }
 
 

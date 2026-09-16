@@ -96,8 +96,8 @@ public class VentanaJuego {
         seccionJugador.redibujar(indiceTurnoActual, hayJugadorEnTurno);
     }
 
-    public void actualizarDealer() {
-        seccionDealer.redibujarDealer();
+    public void actualizarDealer(boolean esSuTurno) {
+        seccionDealer.redibujarDealer(esSuTurno);
     }
 
     public void habilitarAcciones(boolean habilitado) {
@@ -119,6 +119,7 @@ public class VentanaJuego {
                     panelJugadorActual.getContenedor().getStyleClass().add("jugador-derrotado");
                 }
                 panelJugadorActual.redibujar(false);
+                panelJugadorActual.mostrarPuntuacion(true);
                 panelJugadorActual.mostrarIconoResultado(true);
             }
         });

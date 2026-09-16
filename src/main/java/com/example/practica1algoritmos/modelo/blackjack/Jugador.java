@@ -52,6 +52,9 @@ public class Jugador {
         return seHaPlantado;
     }
 
+    public int getPuntuacion() {
+        return manoJugador.getPuntaje();
+    }
 
     public void setManoJugador(Mano manoJugador) {
         this.manoJugador = manoJugador;

@@ -24,7 +24,7 @@ public class ControladorGUI {
 
     public void iniciarPartida() {
         juego.repartirCartasIniciales();
-        ventana.actualizarDealer();
+        ventana.actualizarDealer(false);
         iniciarTurno(0);
     }
 
@@ -77,7 +77,7 @@ public class ControladorGUI {
         ventana.actualizarJugadores(-1, false);
 
         juego.getDealer().mostrarSusCartas();
-        ventana.actualizarDealer();
+        ventana.actualizarDealer(true);
 
         pausarTurnoDealer();
 
@@ -92,7 +92,7 @@ public class ControladorGUI {
     private void continuarTurnoDealer() {
         if (juego.dealerDebeSeguirSacando()) {
             juego.dealerPideUnaCarta();
-            ventana.actualizarDealer();
+            ventana.actualizarDealer(true);
             pausarTurnoDealer();
         } else {
             terminarRonda();
@@ -103,7 +103,7 @@ public class ControladorGUI {
         juego.obtenerGanadores();
         juego.revelarCartas();
 
-        ventana.actualizarDealer();
+        ventana.actualizarDealer(true);
         ventana.mostrarResultados(juego.getResultadosJugadores());
     }
 }

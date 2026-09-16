@@ -15,18 +15,21 @@ public class SecciónDealer {
 
     private ManoGUI mano;
     private VBox contenedor;
+    private Label labelDatos;
+    private Dealer dealer;
 
     public SecciónDealer(Dealer dealer) {
-        mano = new ManoGUI(dealer.getManoJugador(), ALTO_CARTA, ANCHO_CARTA);
+        this.dealer = dealer;
+        mano = new ManoGUI(this.dealer.getManoJugador(), ALTO_CARTA, ANCHO_CARTA);
 
-        Label nombre = new Label("Dealer");
-        nombre.getStyleClass().add("nombre-dealer");
+        labelDatos = new Label("Dealer (-)");
+        labelDatos.getStyleClass().add("nombre-dealer");
         ImageView icono = new ImageView(new Image(getClass().getResource("/recursos/iconos/iconoDealer.png").toExternalForm()));
         icono.setFitHeight(ALTO_ICONO);
         icono.setFitWidth(ANCHO_ICONO);
         icono.setPreserveRatio(true);
 
-        contenedor = new VBox(8, icono, nombre, mano.getContenedor());
+        contenedor = new VBox(8, icono, labelDatos, mano.getContenedor());
         contenedor.setAlignment(Pos.CENTER);
         contenedor.getStyleClass().add("seccion-dealer");
 
@@ -37,7 +40,13 @@ public class SecciónDealer {
         return contenedor;
     }
 
-    public void redibujarDealer() {
+    public void redibujarDealer(boolean esSuTurno) {
         mano.redibujarMano();
+        if (esSuTurno) {
+            labelDatos.setText("Dealer (" + dealer.getPuntuacion() + ")");
+        } else {
+            labelDatos.setText("Dealer (-)");
+        }
+
     }
 }

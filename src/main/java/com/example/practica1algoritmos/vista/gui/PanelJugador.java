@@ -18,6 +18,7 @@ public class PanelJugador {
     private VBox contenedor;
     private ImageView iconoResultado;
     private int estadoResultado = 1;
+    private Label labelDatos;
 
     public PanelJugador(Jugador jugador, int indiceJugador) {
         this.jugador = jugador;
@@ -35,10 +36,10 @@ public class PanelJugador {
         icono.setFitWidth(ANCHO_PANEL);
         icono.setPreserveRatio(true);
 
-        Label nombre = actualizarNombre(jugador.getNombreJugador());
+        labelDatos = actualizarNombre(jugador.getNombreJugador() + " (-)");
 
-        nombre.getStyleClass().add("nombre-jugador");
-        contenedor = new VBox(4, iconoResultado, icono, nombre, mano.getContenedor());
+        labelDatos.getStyleClass().add("nombre-jugador");
+        contenedor = new VBox(4, iconoResultado, icono, labelDatos, mano.getContenedor());
         contenedor.setAlignment(Pos.CENTER);
         contenedor.getStyleClass().add("panel-jugador");
     }
@@ -47,6 +48,7 @@ public class PanelJugador {
         mano.redibujarMano();
         iconoResultado.setImage(new Image(getClass().getResource(crearRutaResultado(estadoResultado)).toExternalForm()));
 
+        mostrarPuntuacion(esSuTurno);
         if (esSuTurno) {
             if (!contenedor.getStyleClass().contains("jugador-en-turno-propio")) {
                 contenedor.getStyleClass().add("jugador-en-turno-propio");
@@ -55,6 +57,12 @@ public class PanelJugador {
             contenedor.getStyleClass().remove("jugador-en-turno-propio");
         }
 
+    }
+
+    public void mostrarPuntuacion(boolean debeMostrarse) {
+        if (debeMostrarse) labelDatos.setText(jugador.getNombreJugador() +
+                " (" + jugador.getPuntuacion() + ")");
+        else labelDatos.setText(jugador.getNombreJugador() + " (-)");
     }
 
 

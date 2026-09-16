@@ -83,7 +83,7 @@ public class Mano implements Comparable<Mano> {
     }
 
     public int getPuntaje() {
-        return puntaje;
+        return calcularPuntaje();
     }
 
     /**
