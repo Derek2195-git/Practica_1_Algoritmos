@@ -1,17 +1,17 @@
 package com.example.practica1algoritmos.modelo.blackjack;
 
-import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
+import com.example.practica1algoritmos.modelo.Pila;
 
 import java.util.ArrayList;
 
 public class Mano implements Comparable<Mano> {
-    private ArrayList<CartaInglesa> cartas;
+    private Pila<CartaInglesa> cartas;
     private boolean manoDesbordada;
     private int puntaje;
 
     public Mano() {
-        cartas = new ArrayList<>();
+        cartas = new Pila<>();
         manoDesbordada = false;
         puntaje = 0;
     }
@@ -19,6 +19,7 @@ public class Mano implements Comparable<Mano> {
     public int calcularPuntaje() {
         puntaje = 0;
         int asesEncontrados = 0;
+        // A fuerzas voy a modificar esto
         for(CartaInglesa cartaActual : cartas) {
             int valorCarta = obtenerValorCarta(cartaActual);
             if (cartaActual.getValor() == 14) {
@@ -46,7 +47,9 @@ public class Mano implements Comparable<Mano> {
         return valorCarta;
     }
 
+    // Voy a tener que modificar esto
     public ArrayList<CartaInglesa> getCartas() {
+        // Quizas aqui puedo hacer trampa y retornar un arraylist con los valores de la pila?
         return cartas;
     }
 
@@ -61,11 +64,11 @@ public class Mano implements Comparable<Mano> {
      * @return Valor que indica si hay un 21 usando 2 cartas
      */
     public boolean hayBlackJackPerfecto() {
-        return cartas.size() == 2 && calcularPuntaje() == 21;
+        return cartas.tamanoPila() == 2 && calcularPuntaje() == 21;
     }
 
     public void agregarCarta(CartaInglesa carta) {
-        cartas.add(carta);
+        cartas.push(carta);
     }
 
     public int getPuntaje() {
@@ -103,6 +106,7 @@ public class Mano implements Comparable<Mano> {
     @Override
     public String toString() {
         StringBuilder cadena = new StringBuilder();
+        // Cambiar esto por algo para la pila
         for (CartaInglesa carta : cartas) {
             cadena.append(carta.toString()).append(" ");
         }
