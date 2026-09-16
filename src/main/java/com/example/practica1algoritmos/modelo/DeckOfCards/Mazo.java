@@ -16,7 +16,7 @@ public class Mazo {
     public Mazo() {
          cartas = new Pila<>(52);
         llenar(); // crea todas las cartas, excluyendo Jokers
-        // mezclar();
+        // Se quitó el metodo mezclar() para aprovecharlo mejor en el metodo llenar()
     }
 
     /**
@@ -44,25 +44,30 @@ public class Mazo {
     }
 
     // A lo mejor tendré que reescribir esto
-    private void mezclar() {
+    private void mezclar(ArrayList<CartaInglesa> cartas) {
         Collections.shuffle(cartas);
     }
 
     private void llenar() {
+        ArrayList<CartaInglesa> listaCartas = new ArrayList<>();
+
         for (int i = 2; i <=14 ; i++) {
             for (Palo palo : Palo.values()) {
                 CartaInglesa c = new CartaInglesa(i,palo, palo.getColor());
-                cartas.add(c);
+                listaCartas.add(c);
             }
         }
+        mezclar(listaCartas);
+        listaCartas.forEach(c -> cartas.push(c));
+
     }
 
     public void ordenar() {
-        Collections.sort(cartas);
+        Collections.sort(getCartas());
     }
 
     @Override
     public String toString() {
-        return cartas.toString();
+        return getCartas().toString();
     }
 }
