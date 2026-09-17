@@ -11,11 +11,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.awt.image.PackedColorModel;
+
 public class ControladorGUI {
     // RApido no mas cucarachas yua no quiero quedarme aqui :C
     private BlackjackGame juego;
     private VentanaJuego ventana;
     private int numeroJugadorActual;
+    private PauseTransition pausaDealer;
+    private boolean turnoDealerEnCurso;
 
     public ControladorGUI(BlackjackGame juego, VentanaJuego ventana) {
         this.juego = juego;
@@ -81,9 +85,10 @@ public class ControladorGUI {
     }
 
     private void iniciarTurnoDealer() {
+        turnoDealerEnCurso = true;
         ventana.habilitarAcciones(false);
         ventana.actualizarJugadores(-1, false);
-        ventana.habilitarDeshacer(false);
+        ventana.habilitarDeshacer(true);
 
         juego.iniciarRegistroDealer();
         juego.getDealer().mostrarSusCartas();
@@ -94,12 +99,13 @@ public class ControladorGUI {
     }
 
     private void pausarTurnoDealer() {
-        PauseTransition pausa = new PauseTransition(Duration.millis(1500));
-        pausa.setOnFinished(e -> continuarTurnoDealer());
-        pausa.play();
+        pausaDealer = new PauseTransition(Duration.millis(1500));
+        pausaDealer.setOnFinished(e -> continuarTurnoDealer());
+        pausaDealer.play();
     }
 
     private void continuarTurnoDealer() {
+        if (!turnoDealerEnCurso) return;
         if (juego.dealerDebeSeguirSacando()) {
             juego.pedirUnaCartaDealer();
             ventana.actualizarDealer(true);
@@ -110,6 +116,8 @@ public class ControladorGUI {
     }
 
     private void terminarRonda() {
+        turnoDealerEnCurso = false;
+        pausaDealer = null;
         juego.obtenerGanadores();
         juego.revelarCartas();
 
@@ -119,14 +127,41 @@ public class ControladorGUI {
     }
 
     private void manejarUndo() {
-        Movimiento movimiento = juego.deshacerMovimiento();
-        if (movimiento != null) {
-            if (movimiento instanceof MovimientoDealer) {
+        if (turnoDealerEnCurso) {
+            deshacerturnoDealer();
+            return;
+        }
+
+        Movimiento movimientoAnterior = juego.deshacerMovimiento();
+        if (movimientoAnterior != null) {
+            if (movimientoAnterior instanceof MovimientoDealer) {
                 deshacerFinRonda();
-            } else if (movimiento instanceof MovimientoJugador) {
-                deshacerMovimientoJugador((MovimientoJugador) movimiento);
+            } else if (movimientoAnterior instanceof MovimientoJugador) {
+                deshacerMovimientoJugador((MovimientoJugador) movimientoAnterior);
             }
         }
+    }
+
+    private void deshacerturnoDealer() {
+        if (pausaDealer != null) {
+            pausaDealer.stop();
+            pausaDealer = null;
+        }
+        turnoDealerEnCurso = false;
+
+        juego.deshacerMovimiento();
+        ventana.deshacerResultados();
+        ventana.actualizarDealer(false);
+
+        Movimiento movimientoAnterior = juego.deshacerMovimiento();
+        if (movimientoAnterior instanceof MovimientoJugador) {
+            deshacerMovimientoJugador((MovimientoJugador) movimientoAnterior);
+        } else {
+            ventana.habilitarAcciones(false);
+            ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+
+        }
+
     }
 
     private void deshacerFinRonda() {
@@ -137,6 +172,8 @@ public class ControladorGUI {
         ventana.actualizarJugadores(-1, false);
         ventana.habilitarAcciones(false);
         ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+
+        iniciarTurnoDealer();
     }
 
     private void deshacerMovimientoJugador(MovimientoJugador movimiento) {
