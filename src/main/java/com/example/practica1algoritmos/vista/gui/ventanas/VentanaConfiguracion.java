@@ -2,11 +2,13 @@ package com.example.practica1algoritmos.vista.gui.ventanas;
 
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import com.example.practica1algoritmos.vista.gui.ImageButton;
+import com.example.practica1algoritmos.vista.gui.objetosGUI.CartaGUI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -79,13 +81,38 @@ public class VentanaConfiguracion {
 
         // TODO quizas algo como una preview?
 
-        ImageButton botonAnterior = new ImageButton("/recursos/baraja/1_reverso.png", 32, 32);
+        ImageButton botonAnterior = new ImageButton("/recursos/baraja/placeholder.png", 32, 32);
+        botonAnterior.setOnAction(e -> cambiarReverso(-1));
+        ImageButton botonSiguiente = new ImageButton("/recursos/baraja/placeholder.png", 32, 32);
+        botonSiguiente.setOnAction(e -> cambiarReverso(1));
 
+        HBox selector = new HBox(botonAnterior, vistaPreviaReverso, botonSiguiente);
+        selector.setAlignment(Pos.CENTER);
 
+        VBox contenedor = new VBox(titulo, selector);
+        contenedor.setAlignment(Pos.CENTER);
 
-
-
+        return contenedor;
     }
+
+    private void cambiarReverso(int direccionReverso) {
+        int total = RUTAS_REVERSO.length;
+        indiceReversoSeleccionado = (indiceReversoSeleccionado + direccionReverso + total) % total;
+
+        // TODO: Si creo hacer una preview
+    }
+
+
+
+    private int buscarReversoActual() {
+        for (int i = 0; i < RUTAS_REVERSO.length; i++) {
+            if (RUTAS_REVERSO[i].equalsIgnoreCase(CartaGUI.getRutaReverso())) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
 
 
 

@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class CartaGUI extends ImageView {
-    private String rutaReverso = "/recursos/baraja/1_reverso.png";
+    private static String rutaReverso = "/recursos/baraja/1_reverso.png";
     private CartaInglesa cartaAMostrar;
 
     public CartaGUI(int alto, int ancho, CartaInglesa cartaAMostrar) {
@@ -42,11 +42,11 @@ public class CartaGUI extends ImageView {
         };
     }
 
-    public void setRutaReverso(String rutaReverso) {
-        this.rutaReverso = rutaReverso;
+    public void setRutaReverso(String rutaNueva) {
+        rutaReverso = rutaNueva;
     }
 
-    public String getRutaReverso() {
+    public static String getRutaReverso() {
         return rutaReverso;
     }
 }
