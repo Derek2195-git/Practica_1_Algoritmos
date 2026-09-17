@@ -15,6 +15,6 @@ public class MovimientoPedirCarta extends MovimientoJugador implements Movimient
     @Override
     public void deshacer() {
         CartaInglesa carta = getJugador().getManoJugador().quitarUltimaCarta();
-        mazo.retornarCarta(carta);
+        mazo.regresarCarta(carta);
     }
 }

@@ -2,12 +2,18 @@ package com.example.practica1algoritmos.modelo.blackjack;
 
 import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
 import com.example.practica1algoritmos.modelo.DeckOfCards.Mazo;
+import com.example.practica1algoritmos.modelo.Pila;
+import com.example.practica1algoritmos.modelo.movimientos.Movimiento;
+import com.example.practica1algoritmos.modelo.movimientos.MovimientoDealer;
+import com.example.practica1algoritmos.modelo.movimientos.MovimientoPedirCarta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BlackjackGame {
     private Mazo mazoCartas;
+    private Pila<Movimiento> historialMovimientos;
+    private MovimientoDealer movimientosFinRonda;
     private ArrayList<Jugador> jugadores;
     private HashMap<Jugador, String> resultadosJugadores;
     private Dealer dealer;
@@ -17,6 +23,7 @@ public class BlackjackGame {
         dealer = new Dealer();
         jugadores = new ArrayList<>();
         resultadosJugadores = new HashMap<>();
+        historialMovimientos = new Pila<>();
         nombresJugadores.forEach(nombre -> {
             Jugador jugador = new Jugador(nombre);
             jugadores.add(jugador);
@@ -39,7 +46,9 @@ public class BlackjackGame {
 
     public void pedirCarta(int indiceJugadorActual) {
         if (indiceJugadorActual >= 0 && indiceJugadorActual < jugadores.size()) {
-            jugadores.get(indiceJugadorActual).pedirCarta(mazoCartas.obtenerUnaCarta());
+            Jugador jugador = jugadores.get(indiceJugadorActual);
+            jugador.pedirCarta(mazoCartas.obtenerUnaCarta());
+            historialMovimientos.push(new MovimientoPedirCarta(jugador, mazoCartas));
         } else System.out.println("El jugador no existe");
     }
 

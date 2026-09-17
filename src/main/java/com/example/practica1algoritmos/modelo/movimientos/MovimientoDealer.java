@@ -36,6 +36,12 @@ public class MovimientoDealer implements Movimiento {
 
     @Override
     public void deshacer() {
-
+        for (int i = 0; i < cartasSacadasDealer; i++) {
+            CartaInglesa carta = dealer.getManoJugador().quitarUltimaCarta();
+            mazo.regresarCarta(carta);
+        }
+        cartaOcultaOriginal.makeFaceDown();
+        jugadores.forEach(Jugador::ocultarSusCartas);
+        resultadosJugadores.clear();
     }
 }
