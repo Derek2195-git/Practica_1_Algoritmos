@@ -19,7 +19,7 @@ public class SecciónAjustes {
             botonConfiguración = new ImageButton("/recursos/iconos/botonConfiguracion.png", ALTO_BOTON, ANCHO_BOTON);
         botonUndo = new ImageButton("/recursos/iconos/botonUndo.png", ALTO_BOTON, ANCHO_BOTON );
 
-        contenedor = new HBox(10, botonSalir, botonConfiguración,    botonUndo);
+        contenedor = new HBox(10, botonSalir, botonConfiguración, botonUndo);
         contenedor.setAlignment(Pos.CENTER_LEFT);
         contenedor.setPadding(new Insets(30, 0, 0, 20));
     }

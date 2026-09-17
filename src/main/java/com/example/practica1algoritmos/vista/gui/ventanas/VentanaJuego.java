@@ -152,8 +152,7 @@ public class VentanaJuego {
 
     public void abrirConfiguracion(Runnable alCerrar) {
         VentanaConfiguracion config = new VentanaConfiguracion(stage, juego.getJugadores());
-        //TODO: Al cerrarse
-        // mostrar
+        config.alCerrarse(alCerrar);
         config.mostrar();
     }
 

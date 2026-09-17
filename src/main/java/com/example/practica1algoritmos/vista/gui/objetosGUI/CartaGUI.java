@@ -42,7 +42,7 @@ public class CartaGUI extends ImageView {
         };
     }
 
-    public void setRutaReverso(String rutaNueva) {
+    public static void setRutaReverso(String rutaNueva) {
         rutaReverso = rutaNueva;
     }
 

@@ -12,8 +12,8 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        VentanaMenu ventanaConfiguración = new VentanaMenu(stage);
-        ventanaConfiguración.mostrarInicio();
+        VentanaMenu ventanaMenu = new VentanaMenu(stage);
+        ventanaMenu.mostrarInicio();
         iniciarMusica();
     }
 

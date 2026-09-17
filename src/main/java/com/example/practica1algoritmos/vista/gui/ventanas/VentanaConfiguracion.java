@@ -4,12 +4,15 @@ import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import com.example.practica1algoritmos.vista.gui.ImageButton;
 import com.example.practica1algoritmos.vista.gui.objetosGUI.CartaGUI;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -17,10 +20,13 @@ import java.util.ArrayList;
 public class VentanaConfiguracion {
     private final String[] RUTAS_REVERSO = {
             "/recursos/baraja/1_reverso.png",
-            "/recursos/baraja/placeholder.png",
-            "/recursos/baraja/placeholder.png",
-            "/recursos/baraja/placeholder.png",
-            "/recursos/baraja/placeholder.png"
+            "/recursos/baraja/2_reverso.png",
+            "/recursos/baraja/3_reverso.png",
+            "/recursos/baraja/4_reverso.png",
+            "/recursos/baraja/5_reverso.png",
+            "/recursos/baraja/6_reverso.png",
+            "/recursos/baraja/7_reverso.png",
+            "/recursos/baraja/8_reverso.png"
     };
     private Stage ventana;
 
@@ -30,7 +36,7 @@ public class VentanaConfiguracion {
     private Button botonMusica;
     private int indiceReversoSeleccionado;
     private Runnable alCerrarConfiguracion;
-    public VentanaConfiguracion(Stage ventana, ArrayList<Jugador> jugadores) {
+    public VentanaConfiguracion(Stage ventanaNueva, ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
 
         camposNombre = new ArrayList<>();
@@ -38,7 +44,8 @@ public class VentanaConfiguracion {
 
         ventana = new Stage();
 
-        // TODO FALTA ALGO AQUI
+        ventana.initOwner(ventanaNueva);
+        ventana.initModality(Modality.APPLICATION_MODAL);
         ventana.setTitle("Configuración");
         ventana.setResizable(false);
     }
@@ -50,12 +57,24 @@ public class VentanaConfiguracion {
 
 
     public void mostrar() {
+        VBox contenido = new VBox(10, crearSeccionNombres(),
+                crearSeccionReverso(), crearBotonAceptar());
+        contenido.setAlignment(Pos.CENTER);
+        contenido.getStyleClass().add("root");
 
+        Scene escena = new Scene(contenido, 360, 520);
+        escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
+
+        ventana.setOnHidden(e -> aplicarCambios());
+        ventana.setScene(escena);
+        ventana.centerOnScreen();
+        ventana.show();
     }
 
-    public VBox crearSeccionNombres() {
+    private VBox crearSeccionNombres() {
         Label titulo = new Label("Nombres de los jugadores");
         titulo.getStyleClass().add("label-informativo");
+        camposNombre.clear();
 
         VBox contenedor = new VBox(8, titulo);
         contenedor.setAlignment(Pos.CENTER);
@@ -75,15 +94,14 @@ public class VentanaConfiguracion {
         titulo.getStyleClass().add("label-informativo");
 
         vistaPreviaReverso = new ImageView();
-        vistaPreviaReverso.setFitWidth(140);
-        vistaPreviaReverso.setFitHeight(90);
+        vistaPreviaReverso.setFitWidth(90);
+        vistaPreviaReverso.setFitHeight(140);
         vistaPreviaReverso.setPreserveRatio(true);
+        actualizarPreview();
 
-        // TODO quizas algo como una preview?
-
-        ImageButton botonAnterior = new ImageButton("/recursos/baraja/placeholder.png", 32, 32);
+        ImageButton botonAnterior = new ImageButton("/recursos/iconos/botonAnterior.png", 48, 48);
         botonAnterior.setOnAction(e -> cambiarReverso(-1));
-        ImageButton botonSiguiente = new ImageButton("/recursos/baraja/placeholder.png", 32, 32);
+        ImageButton botonSiguiente = new ImageButton("/recursos/iconos/botonSiguiente.png", 48, 48);
         botonSiguiente.setOnAction(e -> cambiarReverso(1));
 
         HBox selector = new HBox(botonAnterior, vistaPreviaReverso, botonSiguiente);
@@ -99,10 +117,18 @@ public class VentanaConfiguracion {
         int total = RUTAS_REVERSO.length;
         indiceReversoSeleccionado = (indiceReversoSeleccionado + direccionReverso + total) % total;
 
-        // TODO: Si creo hacer una preview
+        actualizarPreview();
     }
 
-
+    private  void actualizarPreview() {
+        String ruta = RUTAS_REVERSO[indiceReversoSeleccionado];
+        try {
+            vistaPreviaReverso.setImage(
+                    new Image(getClass().getResource(ruta).toExternalForm()));
+        } catch (RuntimeException e) {
+            System.out.println("No se pudo cargar el reverso cargado en " + ruta);
+        }
+    }
 
     private int buscarReversoActual() {
         for (int i = 0; i < RUTAS_REVERSO.length; i++) {
@@ -113,7 +139,27 @@ public class VentanaConfiguracion {
         return 0;
     }
 
+    private Button crearBotonAceptar() {
+        Button boton = new Button("Aceptar");
+        boton.getStyleClass().add("boton-iniciar");
+        boton.setOnAction(e -> ventana.close());
+        return boton;
+    }
 
+    private void aplicarCambios() {
+        for (int i = 0; i < jugadores.size(); i++) {
+            String nombreNuevo = camposNombre.get(i).getText().trim();
+            if (!nombreNuevo.isEmpty()) {
+                jugadores.get(i).setNombreJugador(nombreNuevo);
+            }
+        }
+
+        CartaGUI.setRutaReverso(RUTAS_REVERSO[indiceReversoSeleccionado]);
+
+        if (alCerrarConfiguracion != null) {
+            alCerrarConfiguracion.run();
+        }
+    }
 
 
 }

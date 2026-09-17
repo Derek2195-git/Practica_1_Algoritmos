@@ -16,6 +16,7 @@ public class ControladorGUI {
     private int numeroJugadorActual;
     private PauseTransition pausaDealer;
     private boolean turnoDealerEnCurso;
+    private boolean rondaAcabada;
 
     public ControladorGUI(BlackjackGame juego, VentanaJuego ventana) {
         this.juego = juego;
@@ -24,9 +25,11 @@ public class ControladorGUI {
         ventana.alPedirCarta(this::manejarPedirCarta);
         ventana.alPlantarse(this::manejarPlantarse);
         ventana.alDeshacer(this::manejarUndo);
+        ventana.alConfigurar(this::abrirConfiguracion);
     }
 
     public void iniciarPartida() {
+        rondaAcabada = false;
         juego.repartirCartasIniciales();
         ventana.actualizarDealer(false);
         ventana.habilitarDeshacer(false);
@@ -82,6 +85,7 @@ public class ControladorGUI {
 
     private void iniciarTurnoDealer() {
         turnoDealerEnCurso = true;
+        rondaAcabada = false;
         ventana.habilitarAcciones(false);
         ventana.actualizarJugadores(-1, false);
         ventana.habilitarDeshacer(true);
@@ -112,6 +116,7 @@ public class ControladorGUI {
     }
 
     private void terminarRonda() {
+        rondaAcabada = true;
         turnoDealerEnCurso = false;
         pausaDealer = null;
         juego.obtenerGanadores();
@@ -163,6 +168,7 @@ public class ControladorGUI {
     private void deshacerFinRonda() {
 
         numeroJugadorActual = juego.getJugadores().size() - 1;
+        rondaAcabada = false;
         ventana.deshacerResultados();
         ventana.actualizarDealer(false);
         ventana.actualizarJugadores(-1, false);
@@ -185,5 +191,22 @@ public class ControladorGUI {
         ventana.actualizarJugadores(numeroJugadorActual, true);
         ventana.habilitarAcciones(true);
         ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+    }
+
+    private void abrirConfiguracion() {
+        ventana.abrirConfiguracion(this::recargarVentanaJuego);
+    }
+
+    private void recargarVentanaJuego() {
+        if (rondaAcabada) {
+            ventana.actualizarDealer(true);
+            ventana.mostrarResultados(juego.getResultadosJugadores());
+        } else if (turnoDealerEnCurso){
+            ventana.actualizarJugadores(-1, false);
+            ventana.actualizarDealer(true);
+        } else {
+            ventana.actualizarJugadores(numeroJugadorActual, true);
+            ventana.actualizarDealer(false);
+        }
     }
 }
