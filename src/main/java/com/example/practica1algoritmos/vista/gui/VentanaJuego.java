@@ -92,6 +92,14 @@ public class VentanaJuego {
         seccionAcciones.alPlantarse(accion);
     }
 
+    public void alDeshacer(Runnable accion) {
+        secciónAjustes.alDeshacer(accion);
+    }
+
+    public void habilitarDeshacer(boolean habilitado) {
+        secciónAjustes.habilitarDeshacer(habilitado);
+    }
+
     public void actualizarJugadores(int indiceTurnoActual, boolean hayJugadorEnTurno) {
         seccionJugador.redibujar(indiceTurnoActual, hayJugadorEnTurno);
     }
@@ -130,6 +138,16 @@ public class VentanaJuego {
         labelResultado.setText(texto.toString());
     }
 
-
+    public void deshacerResultados() {
+        juego.getJugadores().forEach(j -> {
+            PanelJugador panel = seccionJugador.getPanelJugador(j);
+            if (panel != null) {
+                panel.getContenedor().getStyleClass().removeAll("jugador-victorioso",
+                        "jugador-empatado", "jugador-derrotado");
+                panel.mostrarIconoResultado(false);
+            }
+        });
+        labelResultado.setText("");
+    }
 
 }

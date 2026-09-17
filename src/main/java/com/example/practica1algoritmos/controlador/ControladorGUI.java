@@ -2,6 +2,9 @@ package com.example.practica1algoritmos.controlador;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
+import com.example.practica1algoritmos.modelo.movimientos.Movimiento;
+import com.example.practica1algoritmos.modelo.movimientos.MovimientoDealer;
+import com.example.practica1algoritmos.modelo.movimientos.MovimientoJugador;
 import com.example.practica1algoritmos.vista.gui.VentanaJuego;
 import javafx.animation.PauseTransition;
 import javafx.scene.media.Media;
@@ -20,11 +23,13 @@ public class ControladorGUI {
 
         ventana.alPedirCarta(this::manejarPedirCarta);
         ventana.alPlantarse(this::manejarPlantarse);
+        ventana.alDeshacer(this::manejarUndo);
     }
 
     public void iniciarPartida() {
         juego.repartirCartasIniciales();
         ventana.actualizarDealer(false);
+        ventana.habilitarDeshacer(false);
         iniciarTurno(0);
     }
 
@@ -33,18 +38,21 @@ public class ControladorGUI {
         juego.getJugadores().get(indiceJugador).mostrarSusCartas();
         ventana.actualizarJugadores(indiceJugador, true);
         ventana.habilitarAcciones(true);
+        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
     }
 
     private void manejarPedirCarta() {
         juego.pedirCarta(numeroJugadorActual);
         juego.getJugadores().get(numeroJugadorActual).mostrarSusCartas();
         ventana.actualizarJugadores(numeroJugadorActual, true);
+        ventana.habilitarDeshacer(true);
         avanzarSiTerminoElTurno();
     }
 
     private void manejarPlantarse() {
         juego.plantarApuesta(numeroJugadorActual);
         ventana.actualizarJugadores(numeroJugadorActual, true);
+        ventana.habilitarDeshacer(true);
         avanzarSiTerminoElTurno();
     }
 
@@ -55,6 +63,7 @@ public class ControladorGUI {
         }
 
         ventana.habilitarAcciones(false);
+        ventana.habilitarDeshacer(false);
 
         PauseTransition pausa = new PauseTransition(Duration.millis(1500));
         pausa.setOnFinished(e -> {
@@ -74,7 +83,9 @@ public class ControladorGUI {
     private void iniciarTurnoDealer() {
         ventana.habilitarAcciones(false);
         ventana.actualizarJugadores(-1, false);
+        ventana.habilitarDeshacer(false);
 
+        juego.iniciarRegistroDealer();
         juego.getDealer().mostrarSusCartas();
         ventana.actualizarDealer(true);
 
@@ -104,5 +115,42 @@ public class ControladorGUI {
 
         ventana.actualizarDealer(true);
         ventana.mostrarResultados(juego.getResultadosJugadores());
+        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+    }
+
+    private void manejarUndo() {
+        Movimiento movimiento = juego.deshacerMovimiento();
+        if (movimiento != null) {
+            if (movimiento instanceof MovimientoDealer) {
+                deshacerFinRonda();
+            } else if (movimiento instanceof MovimientoJugador) {
+                deshacerMovimientoJugador((MovimientoJugador) movimiento);
+            }
+        }
+    }
+
+    private void deshacerFinRonda() {
+
+        numeroJugadorActual = juego.getJugadores().size() - 1;
+        ventana.deshacerResultados();
+        ventana.actualizarDealer(false);
+        ventana.actualizarJugadores(-1, false);
+        ventana.habilitarAcciones(false);
+        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+    }
+
+    private void deshacerMovimientoJugador(MovimientoJugador movimiento) {
+        Jugador jugador = movimiento.getJugador();
+        int indiceJugador = juego.getJugadores().indexOf(jugador);
+
+        if (indiceJugador != numeroJugadorActual) {
+            juego.getJugadores().get(numeroJugadorActual).ocultarSusCartas();
+            numeroJugadorActual = indiceJugador;
+        }
+
+        jugador.mostrarSusCartas();
+        ventana.actualizarJugadores(numeroJugadorActual, true);
+        ventana.habilitarAcciones(true);
+        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
     }
 }
