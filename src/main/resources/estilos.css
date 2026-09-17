@@ -3,6 +3,7 @@
     -fx-background-radius: 8;
 }
 
+/* - - Estado de los jugadores despues de una partida - - */
 .jugador-en-turno-propio {
     -fx-background-color: #99f6dd;
     -fx-border-color: black;
@@ -41,14 +42,14 @@
     -fx-font-family: "Segoe UI", sans-serif;
 }
 
-/* --- Título "Blackjack" --- */
+
 .titulo-app {
     -fx-text-fill: #fafaff;
     -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
 
-/* --- Labels informativos (ej. "Número de jugadores: 2") --- */
+
 .label-informativo {
     -fx-text-fill: #e4d9ff;
     -fx-font-size: 14px;
