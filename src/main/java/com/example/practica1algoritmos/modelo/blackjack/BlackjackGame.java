@@ -1,11 +1,13 @@
 package com.example.practica1algoritmos.modelo.blackjack;
 
 import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
+import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 import com.example.practica1algoritmos.modelo.DeckOfCards.Mazo;
 import com.example.practica1algoritmos.modelo.Pila;
 import com.example.practica1algoritmos.modelo.movimientos.Movimiento;
 import com.example.practica1algoritmos.modelo.movimientos.MovimientoDealer;
 import com.example.practica1algoritmos.modelo.movimientos.MovimientoPedirCarta;
+import com.example.practica1algoritmos.modelo.movimientos.MovimientoPlantarse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,8 +57,37 @@ public class BlackjackGame {
     public void plantarApuesta(int indiceJugadorActual) {
         if (indiceJugadorActual >= 0 && indiceJugadorActual < jugadores.size()) {
             jugadores.get(indiceJugadorActual).plantarse();
+            historialMovimientos.push(new MovimientoPlantarse(jugadores.get(indiceJugadorActual)));
         } else System.out.println("El jugador no existe");
 
+    }
+
+    public void iniciarRegistroDealer() {
+        CartaInglesa cartaOculta = dealer.getManoJugador().getCartas().get(1);
+        movimientosFinRonda = new MovimientoDealer(dealer, mazoCartas, jugadores,
+                resultadosJugadores, cartaOculta);
+        historialMovimientos.push(movimientosFinRonda);
+
+    }
+
+    public void pedirUnaCartaDealer() {
+        dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
+        dealer.mostrarSusCartas();
+        if (movimientosFinRonda != null) movimientosFinRonda.incrementarCartasSacadas();
+    }
+
+    public Movimiento deshacerMovimiento() {
+        if(!historialMovimientos.pilaVacia()) {
+            Movimiento movimiento = historialMovimientos.pop();
+            movimiento.deshacer();
+            if (movimiento == movimientosFinRonda) return null;
+            return movimiento;
+        }
+        return null;
+    }
+
+    public boolean quedanMovimientosPorDeshacer() {
+        return !historialMovimientos.pilaVacia();
     }
 
     public void turnoDealer() {
