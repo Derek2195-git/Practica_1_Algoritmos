@@ -66,6 +66,10 @@ public class Mazo {
         Collections.sort(getCartas());
     }
 
+    public void regresarCarta(CartaInglesa carta) {
+        cartas.push(carta);
+    }
+
     @Override
     public String toString() {
         return getCartas().toString();

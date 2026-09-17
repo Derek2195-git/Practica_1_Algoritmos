@@ -87,7 +87,7 @@ public class Mano implements Comparable<Mano> {
     }
 
     public CartaInglesa quitarUltimaCarta() {
-        
+        return cartas.pop();
     }
 
     /**
