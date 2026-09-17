@@ -77,13 +77,15 @@ public class BlackjackGame {
     }
 
     public Movimiento deshacerMovimiento() {
-        if(!historialMovimientos.pilaVacia()) {
-            Movimiento movimiento = historialMovimientos.pop();
-            movimiento.deshacer();
-            if (movimiento == movimientosFinRonda) return null;
-            return movimiento;
+        if (historialMovimientos.pilaVacia()) {
+            return null;
         }
-        return null;
+        Movimiento movimiento = historialMovimientos.pop();
+        movimiento.deshacer();
+        if (movimiento == movimientosFinRonda) {
+            movimientosFinRonda = null;
+        }
+        return movimiento;
     }
 
     public boolean quedanMovimientosPorDeshacer() {
@@ -142,11 +144,6 @@ public class BlackjackGame {
 
     public boolean dealerDebeSeguirSacando() {
         return dealer.isDebeSeguirSacando();
-    }
-
-    public void dealerPideUnaCarta() {
-        dealer.pedirCarta(mazoCartas.obtenerUnaCarta());
-        dealer.mostrarSusCartas();
     }
 
 

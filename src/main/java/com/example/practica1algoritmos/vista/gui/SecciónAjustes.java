@@ -10,6 +10,7 @@ public class SecciónAjustes {
 
     private ImageButton botonSalir;
     private ImageButton botonConfiguración;
+    private ImageButton botonUndo;
     private HBox contenedor;
 
     public SecciónAjustes() {

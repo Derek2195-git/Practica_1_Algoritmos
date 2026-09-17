@@ -69,7 +69,6 @@ public class ControladorGUI {
         });
         pausa.play();
 
-
     }
 
     private void iniciarTurnoDealer() {
@@ -91,7 +90,7 @@ public class ControladorGUI {
 
     private void continuarTurnoDealer() {
         if (juego.dealerDebeSeguirSacando()) {
-            juego.dealerPideUnaCarta();
+            juego.pedirUnaCartaDealer();
             ventana.actualizarDealer(true);
             pausarTurnoDealer();
         } else {
