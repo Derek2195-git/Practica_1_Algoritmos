@@ -1,8 +1,8 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.vista.gui.ventanas;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
-import javafx.geometry.Insets;
+import com.example.practica1algoritmos.vista.gui.secciones.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -96,6 +94,8 @@ public class VentanaJuego {
         secciónAjustes.alDeshacer(accion);
     }
 
+    public void alConfigurar(Runnable accion) { secciónAjustes.alConfigurar(accion); }
+
     public void habilitarDeshacer(boolean habilitado) {
         secciónAjustes.habilitarDeshacer(habilitado);
     }
@@ -148,6 +148,13 @@ public class VentanaJuego {
             }
         });
         labelResultado.setText("");
+    }
+
+    public void abrirConfiguracion(Runnable alCerrar) {
+        VentanaConfiguracion config = new VentanaConfiguracion(stage, juego.getJugadores());
+        //Al cerrarse
+        // mostrar
+        config.mostrar();
     }
 
 }

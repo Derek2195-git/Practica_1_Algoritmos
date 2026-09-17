@@ -5,13 +5,9 @@ import com.example.practica1algoritmos.modelo.blackjack.Jugador;
 import com.example.practica1algoritmos.modelo.movimientos.Movimiento;
 import com.example.practica1algoritmos.modelo.movimientos.MovimientoDealer;
 import com.example.practica1algoritmos.modelo.movimientos.MovimientoJugador;
-import com.example.practica1algoritmos.vista.gui.VentanaJuego;
+import com.example.practica1algoritmos.vista.gui.ventanas.VentanaJuego;
 import javafx.animation.PauseTransition;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
-import java.awt.image.PackedColorModel;
 
 public class ControladorGUI {
     // RApido no mas cucarachas yua no quiero quedarme aqui :C

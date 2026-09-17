@@ -1,19 +1,10 @@
 package com.example.practica1algoritmos;
 
-import com.example.practica1algoritmos.controlador.ControladorTerminal;
-import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
-import com.example.practica1algoritmos.vista.VistaBlackjackTerminal;
-import com.example.practica1algoritmos.vista.gui.SecciónAcciones;
-import com.example.practica1algoritmos.vista.gui.SecciónDealer;
-import com.example.practica1algoritmos.vista.gui.SecciónJugador;
-import com.example.practica1algoritmos.vista.gui.*;
+import com.example.practica1algoritmos.vista.gui.ventanas.VentanaMenu;
 import javafx.application.Application;
-import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Launcher extends Application {
 

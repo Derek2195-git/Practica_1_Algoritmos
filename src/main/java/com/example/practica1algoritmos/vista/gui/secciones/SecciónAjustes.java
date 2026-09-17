@@ -1,5 +1,6 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.vista.gui.secciones;
 
+import com.example.practica1algoritmos.vista.gui.ImageButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -30,6 +31,8 @@ public class SecciónAjustes {
     public void alSalir(Runnable accion) {
         botonSalir.setOnAction(e -> accion.run());
     }
+
+    public void alConfigurar(Runnable accion) { botonConfiguración.setOnAction(e -> accion.run());}
 
     public void alDeshacer(Runnable accion) { botonUndo.setOnAction(e -> accion.run()); }
 

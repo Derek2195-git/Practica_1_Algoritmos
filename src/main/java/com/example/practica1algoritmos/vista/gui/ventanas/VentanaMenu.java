@@ -1,7 +1,8 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.vista.gui.ventanas;
 
 import com.example.practica1algoritmos.controlador.ControladorGUI;
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
+import com.example.practica1algoritmos.vista.gui.ImageButton;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

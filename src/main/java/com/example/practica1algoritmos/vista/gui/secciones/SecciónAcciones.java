@@ -1,5 +1,6 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.vista.gui.secciones;
 
+import com.example.practica1algoritmos.vista.gui.ImageButton;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 

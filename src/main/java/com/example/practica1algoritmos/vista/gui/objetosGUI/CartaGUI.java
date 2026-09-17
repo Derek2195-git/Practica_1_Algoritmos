@@ -1,4 +1,4 @@
-package com.example.practica1algoritmos.vista.gui;
+package com.example.practica1algoritmos.vista.gui.objetosGUI;
 
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 import javafx.scene.image.Image;
@@ -40,5 +40,13 @@ public class CartaGUI extends ImageView {
             case 14 -> "A";
             default -> String.valueOf(cartaAMostrar.getValor());
         };
+    }
+
+    public void setRutaReverso(String rutaReverso) {
+        this.rutaReverso = rutaReverso;
+    }
+
+    public String getRutaReverso() {
+        return rutaReverso;
     }
 }
