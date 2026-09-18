@@ -40,8 +40,14 @@ public class ControladorGUI {
         numeroJugadorActual = indiceJugador;
         juego.getJugadores().get(indiceJugador).mostrarSusCartas();
         ventana.actualizarJugadores(indiceJugador, true);
-        ventana.habilitarAcciones(true);
-        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+        if (juego.getJugadores().get(numeroJugadorActual)
+                .getManoJugador().calcularPuntaje() == 21) {
+            ventana.habilitarPedirCarta(false);
+            ventana.habilitarDeshacer(false);
+        } else {
+            ventana.habilitarAcciones(true);
+            actualizarBotonUndo();
+        }
     }
 
     private void manejarPedirCarta() {
@@ -83,6 +89,8 @@ public class ControladorGUI {
             jugadorActual.ocultarSusCartas();
             int siguienteIndice = numeroJugadorActual + 1;
 
+
+
             if (siguienteIndice < juego.getJugadores().size()) {
                 iniciarTurno(siguienteIndice);
             } else {
@@ -90,6 +98,7 @@ public class ControladorGUI {
             }
         });
         pausa.play();
+
 
     }
 
@@ -134,7 +143,7 @@ public class ControladorGUI {
 
         ventana.actualizarDealer(true);
         ventana.mostrarResultados(juego.getResultadosJugadores());
-        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+        actualizarBotonUndo();
     }
 
     private void manejarUndo() {
@@ -143,6 +152,7 @@ public class ControladorGUI {
             juego.barajearMazo();
             return;
         }
+
 
         Movimiento movimientoAnterior = juego.deshacerMovimiento();
         if (movimientoAnterior != null) {
@@ -153,6 +163,10 @@ public class ControladorGUI {
             }
             juego.barajearMazo();
         }
+    }
+
+    public void actualizarBotonUndo() {
+        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
     }
 
     private void deshacerturnoDealer() {
@@ -172,7 +186,7 @@ public class ControladorGUI {
         } else {
             ventana.habilitarAcciones(false);
 
-            ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+            actualizarBotonUndo();
 
         }
 
@@ -186,7 +200,7 @@ public class ControladorGUI {
         ventana.actualizarDealer(false);
         ventana.actualizarJugadores(-1, false);
         ventana.habilitarAcciones(false);
-        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+        actualizarBotonUndo();
 
         iniciarTurnoDealer();
     }
@@ -203,7 +217,7 @@ public class ControladorGUI {
         jugador.mostrarSusCartas();
         ventana.actualizarJugadores(numeroJugadorActual, true);
         ventana.habilitarAcciones(true);
-        ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
+        actualizarBotonUndo();
     }
 
     private void abrirConfiguracion() {

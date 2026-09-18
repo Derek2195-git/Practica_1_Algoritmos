@@ -4,10 +4,7 @@ import com.example.practica1algoritmos.modelo.DeckOfCards.Carta;
 import com.example.practica1algoritmos.modelo.DeckOfCards.CartaInglesa;
 import com.example.practica1algoritmos.modelo.DeckOfCards.Mazo;
 import com.example.practica1algoritmos.modelo.Pila;
-import com.example.practica1algoritmos.modelo.movimientos.Movimiento;
-import com.example.practica1algoritmos.modelo.movimientos.MovimientoDealer;
-import com.example.practica1algoritmos.modelo.movimientos.MovimientoPedirCarta;
-import com.example.practica1algoritmos.modelo.movimientos.MovimientoPlantarse;
+import com.example.practica1algoritmos.modelo.movimientos.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +88,16 @@ public class BlackjackGame {
     }
 
     public boolean quedanMovimientosPorDeshacer() {
-        return !historialMovimientos.pilaVacia();
+        if (historialMovimientos.pilaVacia()) {
+            return false;
+        } else {
+            Movimiento ultimoMovimiento = historialMovimientos.peek();
+            if (ultimoMovimiento instanceof MovimientoJugador) {
+                Jugador jugadorAnterior = ((MovimientoJugador) ultimoMovimiento).getJugador();
+                if (jugadorAnterior.getPuntuacion() == 21) return false;
+            }
+        }
+        return true;
     }
 
     public void turnoDealer() {
