@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,15 +55,20 @@ public class VentanaConfiguracion {
         alCerrarConfiguracion = accion;
     }
 
-
-
     public void mostrar() {
         VBox contenido = new VBox(10, crearSeccionNombres(),
                 crearSeccionReverso(), crearBotonAceptar());
         contenido.setAlignment(Pos.CENTER);
-        contenido.getStyleClass().add("root");
 
-        Scene escena = new Scene(contenido, 360, 520);
+        Image fondo = new Image(getClass().getResourceAsStream("/recursos/fondos/Configuracion21.png"));
+        ImageView fondoView = new ImageView(fondo);
+        fondoView.setPreserveRatio(false);
+
+        StackPane root = new StackPane(fondoView, contenido);
+        fondoView.fitWidthProperty().bind(root.widthProperty());
+        fondoView.fitHeightProperty().bind(root.heightProperty());
+        Scene escena = new Scene(root, 360, 414);
+
         escena.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());
 
         ventana.setOnHidden(e -> aplicarCambios());

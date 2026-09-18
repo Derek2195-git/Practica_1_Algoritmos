@@ -45,6 +45,11 @@ public class ControladorGUI {
     }
 
     private void manejarPedirCarta() {
+        if (juego.getJugadores().get(numeroJugadorActual)
+                .getManoJugador().calcularPuntaje() == 21) {
+            ventana.habilitarPedirCarta(false);
+            ventana.habilitarDeshacer(false);
+        }
         juego.pedirCarta(numeroJugadorActual);
         juego.getJugadores().get(numeroJugadorActual).mostrarSusCartas();
         ventana.actualizarJugadores(numeroJugadorActual, true);
@@ -62,7 +67,12 @@ public class ControladorGUI {
     private void avanzarSiTerminoElTurno() {
         Jugador jugadorActual = juego.getJugadores().get(numeroJugadorActual);
         if (!jugadorActual.isHaTomadoSuTurno()) {
-            return; // sigue siendo su turno, no hacemos nada más
+            if (juego.getJugadores().get(numeroJugadorActual)
+                    .getManoJugador().calcularPuntaje() == 21) {
+                ventana.habilitarPedirCarta(false);
+                ventana.habilitarDeshacer(false);
+            }
+            return;
         }
 
         ventana.habilitarAcciones(false);
@@ -130,6 +140,7 @@ public class ControladorGUI {
     private void manejarUndo() {
         if (turnoDealerEnCurso) {
             deshacerturnoDealer();
+            juego.barajearMazo();
             return;
         }
 
@@ -140,6 +151,7 @@ public class ControladorGUI {
             } else if (movimientoAnterior instanceof MovimientoJugador) {
                 deshacerMovimientoJugador((MovimientoJugador) movimientoAnterior);
             }
+            juego.barajearMazo();
         }
     }
 
@@ -159,6 +171,7 @@ public class ControladorGUI {
             deshacerMovimientoJugador((MovimientoJugador) movimientoAnterior);
         } else {
             ventana.habilitarAcciones(false);
+
             ventana.habilitarDeshacer(juego.quedanMovimientosPorDeshacer());
 
         }

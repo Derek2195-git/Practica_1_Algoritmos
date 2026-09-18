@@ -58,8 +58,24 @@ public class Mazo {
             }
         }
         mezclar(listaCartas);
-        listaCartas.forEach(c -> cartas.push(c));
+        insertarCartasAPila(listaCartas);
 
+    }
+
+    private void insertarCartasAPila(ArrayList<CartaInglesa> listaDeCartas) {
+        listaDeCartas.forEach(c -> cartas.push(c));
+    }
+
+    public void vaciarMazo() {
+        while(!cartas.pilaVacia()) {
+            cartas.pop();
+        }
+    }
+
+    public void llenarMazo(CartaInglesa carta) {
+        if(!cartas.pilaLlena()) {
+            cartas.push(carta);
+        }
     }
 
     public void ordenar() {

@@ -32,6 +32,14 @@ public class SecciónAcciones {
         botonPlantarse.setOnAction(e -> accion.run());
     }
 
+    public void habilitarPedirCarta(boolean pedirCartaHabilitado) {
+        botonPedirCarta.setDisable(!pedirCartaHabilitado);
+    }
+
+    public void cambiarColorPedir(String nuevaRuta) {
+        botonPedirCarta.cambiarImagen(nuevaRuta);
+    }
+
     public void habilitarBotones(boolean pedirCartaHabilidado, boolean plantarseHabilitado) {
         botonPedirCarta.setDisable(!pedirCartaHabilidado);
         botonPlantarse.setDisable(!plantarseHabilitado);

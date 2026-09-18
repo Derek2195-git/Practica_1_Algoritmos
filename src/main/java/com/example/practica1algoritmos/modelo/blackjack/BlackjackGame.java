@@ -10,6 +10,7 @@ import com.example.practica1algoritmos.modelo.movimientos.MovimientoPedirCarta;
 import com.example.practica1algoritmos.modelo.movimientos.MovimientoPlantarse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class BlackjackGame {
@@ -49,6 +50,7 @@ public class BlackjackGame {
     public void pedirCarta(int indiceJugadorActual) {
         if (indiceJugadorActual >= 0 && indiceJugadorActual < jugadores.size()) {
             Jugador jugador = jugadores.get(indiceJugadorActual);
+            if (jugador.getManoJugador().calcularPuntaje() == 21) return;
             jugador.pedirCarta(mazoCartas.obtenerUnaCarta());
             historialMovimientos.push(new MovimientoPedirCarta(jugador, mazoCartas));
         } else System.out.println("El jugador no existe");
@@ -144,6 +146,15 @@ public class BlackjackGame {
 
     public boolean dealerDebeSeguirSacando() {
         return dealer.isDebeSeguirSacando();
+    }
+
+    public void barajearMazo() {
+        ArrayList<CartaInglesa> mazoOriginal = mazoCartas.getCartas();
+        Collections.shuffle(mazoOriginal);
+        mazoCartas.vaciarMazo();
+
+        mazoOriginal.forEach(c -> mazoCartas.llenarMazo(c));
+
     }
 
 

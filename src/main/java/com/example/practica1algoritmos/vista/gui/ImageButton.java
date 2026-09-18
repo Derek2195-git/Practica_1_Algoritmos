@@ -49,4 +49,23 @@ public class ImageButton extends Button {
         }
 
     }
+
+    public void cambiarImagen(String nuevaRuta) {
+
+        try {
+            Image img = new Image(getClass().getResource(nuevaRuta).toExternalForm());
+            ImageView iconoNuevo = new ImageView(img);
+
+            iconoNuevo.setFitHeight(40);
+            iconoNuevo.setFitWidth(40);
+            iconoNuevo.setPreserveRatio(true);
+
+            setBackground(Background.fill(Color.TRANSPARENT));
+            setGraphic(iconoNuevo);
+            setStyle("-fx-cursor: hand");
+        } catch (RuntimeException e) {
+            System.out.println("No se pudo cargar la imagen con esta ruta:" + nuevaRuta);
+        }
+
+    }
 }

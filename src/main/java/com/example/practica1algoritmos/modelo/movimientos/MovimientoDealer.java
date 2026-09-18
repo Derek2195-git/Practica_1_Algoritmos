@@ -28,9 +28,9 @@ public class MovimientoDealer implements Movimiento {
 
     }
 
-        public void incrementarCartasSacadas() {
-            cartasSacadasDealer++;
-        }
+    public void incrementarCartasSacadas() {
+        cartasSacadasDealer++;
+    }
 
 
 

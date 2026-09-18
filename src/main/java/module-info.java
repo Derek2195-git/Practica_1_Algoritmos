@@ -3,6 +3,7 @@ module com.example.practica1algoritmos {
     requires javafx.fxml;
     requires javafx.media;
     requires java.desktop;
+    requires javafx.graphics;
 
 
     opens com.example.practica1algoritmos to javafx.fxml;

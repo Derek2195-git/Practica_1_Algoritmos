@@ -2,6 +2,7 @@ package com.example.practica1algoritmos.vista.gui.ventanas;
 
 import com.example.practica1algoritmos.modelo.blackjack.BlackjackGame;
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
+import com.example.practica1algoritmos.vista.gui.objetosGUI.PanelJugador;
 import com.example.practica1algoritmos.vista.gui.secciones.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -68,6 +69,7 @@ public class VentanaJuego {
         stage.setScene(escena);
         stage.setTitle("BlackJack");
         stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.show();
     }
 
@@ -95,6 +97,8 @@ public class VentanaJuego {
     }
 
     public void alConfigurar(Runnable accion) { secciónAjustes.alConfigurar(accion); }
+
+    public void habilitarPedirCarta(boolean habilitado) { seccionAcciones.habilitarPedirCarta(habilitado); }
 
     public void habilitarDeshacer(boolean habilitado) {
         secciónAjustes.habilitarDeshacer(habilitado);

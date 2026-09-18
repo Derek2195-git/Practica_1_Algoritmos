@@ -1,7 +1,6 @@
-package com.example.practica1algoritmos.vista.gui.secciones;
+package com.example.practica1algoritmos.vista.gui.objetosGUI;
 
 import com.example.practica1algoritmos.modelo.blackjack.Jugador;
-import com.example.practica1algoritmos.vista.gui.objetosGUI.ManoGUI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
